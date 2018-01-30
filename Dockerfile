@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 FROM million12/centos-supervisor:latest
-=======
-FROM ubuntu:16.04
->>>>>>> master
 
 MAINTAINER James Mathison <tkojames@gmail.com>
 
@@ -14,10 +10,6 @@ RUN yum -y update && yum install -y unzip \
     yum clean all && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
-
-
-
-
 
 
 
