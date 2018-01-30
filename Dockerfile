@@ -6,9 +6,7 @@ MAINTAINER James Mathison <tkojames@gmail.com>
 ADD asset/* /opt/
 
 RUN yum -y update && yum install -y unzip \
-    supervisor \
-    python-pip \
-    wget  \
+    wget -y \
     yum clean all && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
