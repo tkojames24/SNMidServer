@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FROM million12/centos-supervisor:latest
+=======
+FROM ubuntu:16.04
+>>>>>>> master
 
 MAINTAINER James Mathison <tkojames@gmail.com>
 
