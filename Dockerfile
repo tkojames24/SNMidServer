@@ -1,21 +1,26 @@
-FROM ubuntu:14.04
+FROM million12/centos-supervisor:latest
 
-MAINTAINER Tools Management <tools_management@proservia.fr>
+MAINTAINER James Mathison <tkojames@gmail.com>
 
-# To get rid of error messages like "debconf: unable to initialize frontend: Dialog":
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 ADD asset/* /opt/
 
-RUN apt-get -q update && apt-get install -qy unzip \
+RUN yum -y update && yum install -y unzip \
     supervisor \
-    wget && \
-    apt-get clean && \
+    python-pip \
+    wget  \
+    yum clean all && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
+
+
+
+
+
+
 RUN wget --no-check-certificate \
-      https://install.service-now.com/glide/distribution/builds/package/mid/2015/05/19/mid.2015-05-19-1759.linux.x86-64.zip \
+      https://install.service-now.com/glide/distribution/builds/package/mid/2018/01/03/mid.kingston-10-17-2017__patch1-12-12-2017_01-03-2018_0843.linux.x86-64.zip \
       -O /tmp/mid.zip && \
     unzip -d /opt /tmp/mid.zip && \
     mv /opt/agent/config.xml /opt/ && \
