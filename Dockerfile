@@ -14,7 +14,7 @@ RUN yum -y update && yum install -y unzip \
 
 
 RUN wget --no-check-certificate \
-      https://install.service-now.com/glide/distribution/builds/package/mid/2018/03/30/mid.kingston-10-17-2017__patch4-03-21-2018_03-30-2018_1938.linux.x86-64.zip \
+      https://install.service-now.com/glide/distribution/builds/package/mid/2018/05/24/mid.kingston-10-17-2017__patch6-05-16-2018_05-24-2018_1317.linux.x86-64.zip \
       -O /tmp/mid.zip && \
     unzip -d /opt /tmp/mid.zip && \
     mv /opt/agent/config.xml /opt/ && \
