@@ -10,9 +10,8 @@ SN_URL=${SN_URL:-}
 SN_USER=${SN_USER:-}
 SN_PASSWD=${SN_PASSWD:-}
 SN_MID_NAME=${SN_MID_NAME:-}
-SN_INSTANCE=${SN_INSTANCE:-}
-SN_PROXY_HOST=${SN_PROXY_HOST:-}
-SN_PROXY_PORT=${SN_PROXY_PORT:-}
+SN_PROXY_HOST =${SN_PROXY_HOST:-}
+SN_PROXY_PORT =${SN_PROXY_PORT:-}
 
 checkConf () {
   if [ ! -e $CONF_FILE ]
@@ -28,9 +27,8 @@ generateConf () {
   sed 's/YOUR_INSTANCE_USER_NAME_HERE/'"${SN_USER}"'/' -i $CONF_FILE
   sed 's/YOUR_INSTANCE_PASSWORD_HERE/'"${SN_PASSWD}"'/' -i $CONF_FILE
   sed 's/YOUR_INSTANCE/'"${SN_URL}"'/' -i $CONF_FILE
-  sed 's/mid.instance.use_proxy/'"${SN_INSTANCE}"'/' -i $CONF_FILE
-  sed 's/mid.proxy.host/'"${SN_PROXY_HOST}"'/' -i $CONF_FILE
-  sed 's/mid.proxy.port/'"${SN_PROXY_PORT}"'/' -i $CONF_FILE
+  sed 's/YOUR_PROXY_HOST/'"${SN_PROXY_HOST}"'/' -i $CONF_FILE
+  sed 's/YOUR_PROXY_PORT/'"${SN_PROXY_PORT}"'/' -i $CONF_FILE
 }
 
 midStart () {
