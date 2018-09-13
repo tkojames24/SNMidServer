@@ -16,7 +16,7 @@ RUN yum -y update && yum install -y unzip \
 RUN wget --no-check-certificate \
       https://install.service-now.com/glide/distribution/builds/package/mid-upgrade/2018/08/22/mid-upgrade.london-06-27-2018__patch1-08-15-2018_08-22-2018_1559.universal.universal.zip \
       -O /tmp/mid.zip && \
-    unzip "/opt/agent 2/config.xml" -d /opt /tmp/mid.zip && \
+    unzip "/opt/agent 2/" -d /opt /tmp/mid.zip && \
     mv  /opt/ && \
     chmod 755 /opt/init && \
     rm -rf /tmp/*
