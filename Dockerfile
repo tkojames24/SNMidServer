@@ -1,25 +1,17 @@
 FROM million12/centos-supervisor:latest
 
 MAINTAINER James Mathison <tkojames@gmail.com>
+RUN yum -y update 
+RUN yum -y install jre 
+RUN yum -y install sysvinit-tools
+
+COPY asset/  /opt/
+COPY agent/  /opt/agent/
 
 
-ADD asset/* /opt/
-
-RUN yum -y update && yum install -y unzip \
-    wget -y \
-    yum clean all && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/*
-
-
-
-RUN wget --no-check-certificate \
-      https://install.service-now.com/glide/distribution/builds/package/mid/2018/04/19/mid.kingston-10-17-2017__patch4-hotfix1-04-18-2018_04-19-2018_1049.linux.x86-64.zip\
-      -O /tmp/mid.zip && \
-    unzip -d /opt /tmp/mid.zip && \
-    mv /opt/agent/config.xml /opt/ && \
-    chmod 755 /opt/init && \
-    rm -rf /tmp/*
+RUN  mv /opt/agent/config.xml /opt  
+RUN  chmod 775 /opt/init
+    
 
 EXPOSE 80 443
 

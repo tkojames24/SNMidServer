@@ -1,0 +1,38 @@
+﻿<?xml version="1.0"?>
+
+<log4net>
+
+  <appender name="A1" type="log4net.Appender.ConsoleAppender">
+
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date %-5level %logger - %message%newline" />
+    </layout>
+
+  </appender>
+
+  <appender name="A2" type="log4net.Appender.RollingFileAppender">
+
+    <file value="../log/logfile.txt" />
+    <appendToFile value="true" />
+    <rollingStyle value="Size" />
+    <maxSizeRollBackups value="10" />
+    <maximumFileSize value="10MB" />
+    <staticLogFileName value="true" />
+
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date %-5level %logger - %message%newline" />
+    </layout>
+
+  </appender>
+  
+  <root>
+
+    <!-- OFF, FATAL, ERROR, WARN, DEBUG, INFO, ALL -->
+
+    <level value="ALL" /> 
+
+    <appender-ref ref="A2" />
+
+  </root>
+
+</log4net>

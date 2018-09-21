@@ -1,0 +1,1 @@
+bin/mid.sh stop

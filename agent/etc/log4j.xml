@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="SYSTEM" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${com.collation.home}/log/error.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="${com.collation.log.filesize}"/>
+        <param name="MaxBackupIndex" value="${com.collation.log.filecount}"/>
+        <param name="Threshold" value="ERROR"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} %X{service} [%t] %x %p %c{2} - %m\n"/>
+        </layout>	    
+    </appender>
+
+   <appender name="L2" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${com.collation.home}/log/l2.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="${com.collation.log.filesize}"/>
+        <param name="MaxBackupIndex" value="${com.collation.log.filecount}"/>
+        <param name="Threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{ISO8601} %X{service} [%t] %x %p %c{2} - %m\n"/>
+        </layout>	    
+    </appender>
+
+    <category name="com.collation">
+        <priority value="debug"/>
+        <appender-ref ref="SYSTEM"/>
+    </category>
+	
+	<category name="com.collation.topomgr.topobuilder.agents.l2">
+        <priority value="debug"/>
+        <appender-ref ref="L2"/>
+    </category>
+	
+	<category name="com.collation.discover.agent.net.BridgeSnmpAgent">
+        <priority value="debug"/>
+        <appender-ref ref="L2"/>
+    </category>
+	
+</log4j:configuration>

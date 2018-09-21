@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+<PNLObjects version="1.1">
+<BNet TypeName="BNet" NumberOfFactors="8">
+<Graph TypeName="Graph" SavingType="ByEdges" NumberOfNodes="8">
+0:3_(c) 2_(c) 
+1:4_(c) 
+2:6_(c) 0_(p) 
+3:5_(c) 0_(p) 
+4:5_(c) 1_(p) 
+5:7_(c) 6_(c) 4_(p) 3_(p) 
+6:5_(p) 2_(p) 
+7:5_(p) 
+</Graph>
+<ModelDomain TypeName="ModelDomain">
+<VarAssociations TypeName="intVector">
+[0 0 0 0 0 0 0 0 ]</VarAssociations>
+<NodeTypes TypeName="NodeTypeVector" NumberOfNodes="1">
+1:2</NodeTypes>
+</ModelDomain>
+<Factor0 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[0 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="1" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="1">
+1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="1" Ranges="[2 ]" MatrixClass="NumericDense" IsClamped="0">
+[0.500000 0.500000 ]</MatTable>
+</DistributionFunction>
+</Factor0>
+<Factor1 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[1 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="1" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="1">
+1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="1" Ranges="[2 ]" MatrixClass="NumericDense" IsClamped="0">
+[0.990000 0.010000 ]</MatTable>
+</DistributionFunction>
+</Factor1>
+<Factor2 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[0 2 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="2" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="2">
+1:2,1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="2" Ranges="[2 2 ]" MatrixClass="NumericDense" IsClamped="0">
+[0.700000 0.300000 0.400000 0.600000 ]</MatTable>
+</DistributionFunction>
+</Factor2>
+<Factor3 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[0 3 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="2" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="2">
+1:2,1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="2" Ranges="[2 2 ]" MatrixClass="NumericDense" IsClamped="0">
+[0.990000 0.010000 0.900000 0.100000 ]</MatTable>
+</DistributionFunction>
+</Factor3>
+<Factor4 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[1 4 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="2" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="2">
+1:2,1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="2" Ranges="[2 2 ]" MatrixClass="NumericDense" IsClamped="0">
+[0.990000 0.010000 0.950000 0.050000 ]</MatTable>
+</DistributionFunction>
+</Factor4>
+<Factor5 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[3 4 5 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="3" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="3">
+1:2,1:2,1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="3" Ranges="[2 2 2 ]" MatrixClass="NumericDense" IsClamped="0">
+[1.000000 0.000000 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]</MatTable>
+</DistributionFunction>
+</Factor5>
+<Factor6 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[2 5 6 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="3" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="3">
+1:2,1:2,1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="3" Ranges="[2 2 2 ]" MatrixClass="NumericDense" IsClamped="0">
+[0.900000 0.100000 0.300000 0.700000 0.200000 0.800000 0.100000 0.900000 ]</MatTable>
+</DistributionFunction>
+</Factor6>
+<Factor7 TypeName="Factor" FactorType="1" DistributionType="0">
+<ModelDomain TypeName="ModelDomain" DuplicatedObject="@BNet/ModelDomain">
+</ModelDomain>
+<Domain TypeName="intVector">
+[5 7 ]</Domain>
+<DistributionFunction TypeName="TabularDistribFun" NumberOfNodes="2" IsUnitFunction="0">
+<NodeTypes TypeName="PNodeTypeVector" NumberOfNodes="2">
+1:2,1:2</NodeTypes>
+<MatTable TypeName="MatrixOfFloat" NumberOfDimensions="2" Ranges="[2 2 ]" MatrixClass="NumericDense" IsClamped="0">
+[0.950000 0.050000 0.020000 0.980000 ]</MatTable>
+</DistributionFunction>
+</Factor7>
+</BNet>
+
+</PNLObjects>

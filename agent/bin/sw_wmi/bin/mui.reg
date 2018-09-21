@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"PreferredUILanguages"=hex(7):65,00,6e,00,2d,00,55,00,53,00,00,00,00,00
+
