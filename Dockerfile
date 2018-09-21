@@ -1,25 +1,18 @@
 FROM million12/centos-supervisor:latest
 
 MAINTAINER James Mathison <tkojames@gmail.com>
+RUN yum -y update 
+RUN yum -y install jre 
+RUN yum -y install sysvinit-tools
 
-
-ADD asset/* /opt/
-
-RUN yum -y update && yum install -y unzip \
-    wget -y \
-    yum clean all && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/*
+COPY asset/  /opt/
+COPY agent/  /opt/agent/
 
 
 
-RUN wget --no-check-certificate \
-      https://install.service-now.com/glide/distribution/builds/package/mid-upgrade/2018/08/22/mid-upgrade.london-06-27-2018__patch1-08-15-2018_08-22-2018_1559.universal.universal.zip \
-      -O /tmp/mid.zip && \
-    unzip -d /opt /tmp/mid.zip && \
-    mv "/opt/agent 2/config.xml" /opt/ && \
-    chmod 755 /opt/init && \
-    rm -rf /tmp/*
+RUN  mv /opt/agent/config.xml /opt  
+RUN  chmod 775 /opt/init
+    
 
 EXPOSE 80 443
 

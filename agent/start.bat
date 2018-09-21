@@ -1,0 +1,1 @@
+bin\mid.bat start

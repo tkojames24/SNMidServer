@@ -1,0 +1,138 @@
+<package>
+    <job id=" GetAppsInFolder">
+        <comment>
+        File:           GetAppsInFolder.wsf
+        Description:    List all apps in specific folders
+        Requirements:   WSH 5.5 or higher.
+        </comment>
+        <runtime>
+            <description>
+               List All Apps in a Specific Folder
+            </description>
+            <example>
+                CScript //nologo GetAppsInFolder.wsf folder1 | icon full path
+            </example>
+        </runtime>
+        <reference object="MetaFrameCOM.MetaFrameFarm"/>
+        <script language="VBScript">
+		
+		    If WScript.Arguments.Count = 0 Then
+				WScript.Echo "No arguments found for Script."
+				WScript.Echo "Argument should be folder path or application full path."
+				WScript.Quit 0
+			End If
+            Dim theFarm, aServer, theApp, Input, tmpStr,appflag
+            Dim arrFolders()
+            Dim i
+                
+			ReDim arrFolders(WScript.Arguments.Count)
+			Input = Split(WScript.arguments(0),"/")
+			For i=0 to UBound(Input) - 1 
+				If i < UBound(Input) - 1 Then
+					tmpStr = tmpStr & Input(i) & "/"
+				End If
+				If i = UBound(Input) - 1 Then
+					tmpStr = tmpStr & Input(i) 
+				End If
+			Next
+            arrFolders(0) = Replace(Replace(WScript.arguments(0),"/Applications/",""),"Applications/","")
+
+
+			                
+
+											
+            ' Create MetaFrameFarm object
+            Set theFarm = CreateObject("MetaFrameCOM.MetaFrameFarm")
+            if Err.Number <> 0 Then
+                WScript.Echo "Can't create MetaFrameFarm object"
+                WScript.Echo "(" & Err.Number & ") " & Err.Description
+                WScript.Echo ""
+                WScript.Quit Err.Number
+            End if
+
+            ' Initialize the farm object.
+            theFarm.Initialize(MetaFrameWinFarmObject)
+            if Err.Number <> 0 Then
+                WScript.Echo "Can't  Initialize MetaFrameFarm object"
+                WScript.Echo "(" & Err.Number & ") " & Err.Description
+                WScript.Echo ""
+                WScript.Quit Err.Number
+            End if
+
+            ' Are you Citrix Administrator?
+            if theFarm.WinFarmObject.IsCitrixAdministrator = 0 then
+                WScript.Echo "You must be a Citrix admin to run this script" 
+                WScript.Echo ""
+                WScript.Quit 0
+            End If
+            
+            Dim rootAppFolder, folder, strPath,anApp
+			
+            ' Get the application root folder
+            Set rootAppFolder = theFarm.GetRootFolder(MetaFrameAppFolder)
+										
+			On Error Resume Next			
+			Err.Clear			
+			Set folder = rootAppFolder.GetSubFolder(arrFolders(0))			
+			
+			If Err.Number <> 0 Then		
+				set anApp=createobject("Metaframecom.metaframeapplication")		
+				anApp.Initialize MetaframeWinAppObject,WScript.arguments(0)
+				anApp.LoadData(0)		
+
+				If anApp.AppType = 17 Then	
+						WScript.Echo(anApp.AppType & "##" & anApp.DistinguishedName & "##" & anApp.AppName & "##" & anApp.ContentObject.ContentAddress & "##localhost")
+					End If	
+					If anApp.AppType <>  MetaFrameContentObject Then					
+						SrvString = ""
+						For each aServer in anApp.Servers
+							SrvString = SrvString & aServer.ServerName & ","																		
+						Next    
+					End If
+						
+					If anApp.AppType = MetaFrameWinAppObject Then			             				
+						Set aWinApp = anApp.WinAppObject
+						If aWinApp.PNAttributes AND MFWinAppDesktop Then
+							WScript.Echo( anApp.AppType & "##" & anApp.DistinguishedName & "##" & anApp.AppName & "##" & "Desktop published" & "##" & SrvString	)											
+						Else
+							WScript.Echo( anApp.AppType & "##" & anApp.DistinguishedName & "##" & anApp.AppName & "##" & aWinApp.DefaultInitProg & "##" & SrvString )						
+						End If                    
+					End if
+				    WScript.Quit 0
+            End if
+			
+		    strPath = rootAppFolder.FolderName & "/"
+            Call GetAppsInFolder(strPath, folder)
+                                   
+            Function GetAppsInFolder(strPath, folder)
+                Dim app, appFolder, subFolder                
+                Set appFolder = folder.AppFolder
+                                
+                '
+                ' Loop through applications
+                '
+                For Each anApp in appFolder.Applications	
+                    anApp.LoadData(0)		
+					If anApp.AppType = 17 Then	
+						WScript.Echo(anApp.AppType & "##" & anApp.DistinguishedName & "##" & anApp.AppName & "##" & anApp.ContentObject.ContentAddress & "##localhost")
+					End If	
+					If anApp.AppType <>  MetaFrameContentObject Then					
+						SrvString = ""
+						For each aServer in anApp.Servers
+							SrvString = SrvString & aServer.ServerName & ","																		
+						Next    
+					End If
+						
+					If anApp.AppType = MetaFrameWinAppObject Then			             				
+						Set aWinApp = anApp.WinAppObject
+						If aWinApp.PNAttributes AND MFWinAppDesktop Then
+							WScript.Echo( anApp.AppType & "##" & anApp.DistinguishedName & "##" & anApp.AppName & "##" & "Desktop published" & "##" & SrvString	)											
+						Else
+							WScript.Echo( anApp.AppType & "##" & anApp.DistinguishedName & "##" & anApp.AppName & "##" & aWinApp.DefaultInitProg & "##" & SrvString )						
+						End If                    
+					End if						
+				Next          
+            End Function            
+        </script>
+    </job>
+</package>
