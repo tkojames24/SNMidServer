@@ -9,6 +9,7 @@ COPY asset/  /opt/
 COPY agent/  /opt/agent/
 
 
+
 RUN  mv /opt/agent/config.xml /opt  
 RUN  chmod 775 /opt/init
     
