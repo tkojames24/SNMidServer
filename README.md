@@ -1,6 +1,6 @@
 # docker ServiceNow MID Server
 
-This is a Dockerfile to set up "ServiceNow MID Server" - (http://wiki.servicenow.com/index.php?title=MID_Server_Installation)
+This is a Dockerfile to set up "ServiceNow MID Server" - (https://docs.servicenow.com/bundle/london-servicenow-platform/page/product/mid-server/concept/c_MIDServerInstallation.html)
 
 ## Build from docker file
 
