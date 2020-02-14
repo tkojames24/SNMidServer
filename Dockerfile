@@ -2,7 +2,6 @@ FROM million12/centos-supervisor:latest
 
 MAINTAINER James Mathison <tkojames@gmail.com>
 RUN yum -y update 
-RUN yum -y install jre 
 RUN yum -y install sysvinit-tools
 
 COPY asset/  /opt/
