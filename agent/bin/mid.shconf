@@ -1,0 +1,4 @@
+APP_NAME="mid"
+APP_LONG_NAME="ServiceNow MID Server"
+PIDDIR="../work"
+SYSTEMD_KILLMODE=process

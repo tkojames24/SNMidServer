@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #
-# Copyright (c) 1999, 2017 Tanuki Software, Ltd.
+# Copyright (c) 1999, 2019 Tanuki Software, Ltd.
 # http://www.tanukisoftware.com
 # All rights reserved.
 #
@@ -16,21 +16,29 @@
 
 #-----------------------------------------------------------------------------
 # These settings can be modified to fit the needs of your application
-# Optimized for use with version 3.5.34-st of the Wrapper.
+# Optimized for use with version 3.5.40-st of the Wrapper.
 
 # IMPORTANT - Please always stop and uninstall an application before making
 #             any changes to this file.  Failure to do so could remove the
 #             script's ability to control the application.
 
+# NOTE - After loading the variables below, the script will attempt to locate a
+#  file with the same basename as this script and having a '.shconf' extension.
+#  If such file exists, it will be executed giving the user a chance to
+#  override the default settings. Having the customized configuration in a
+#  separate '.shconf' file makes it easier to upgrade the Wrapper, as the
+#  present script file can then be replaced with minimal changes (although at
+#  least the 'INIT INFO' below needs to be updated).
+
 # Initialization block for the install_initd and remove_initd scripts used by
 #  SUSE linux, CentOS and RHEL distributions.
-# Note: From CentOS 6, make sure the BEGIN INIT INFO section is before any line
-#       of code otherwise the service won't be displayed in the Service
+# Note: From CentOS 6, make sure the BEGIN INIT INFO section is before any line 
+#       of code otherwise the service won't be displayed in the Service 
 #       Configuration GUI.
 ### BEGIN INIT INFO
 # Provides: @app.name@
 # Required-Start: $local_fs $network $syslog
-# Should-Start:
+# Should-Start: 
 # Required-Stop:
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
@@ -38,11 +46,13 @@
 # Description: @app.description@
 ### END INIT INFO
 
-# Application
-APP_NAME="mid"
-APP_LONG_NAME="ServiceNow MID Server"
+# Application name and long name: If these variables are not set (or left to
+#  the default tokens), APP_NAME will default to the name of the script, then
+#  APP_LONG_NAME will default to the value of APP_NAME.
+APP_NAME="@app.name@"
+APP_LONG_NAME="@app.long.name@"
 
-# If uncommented (and set to false), APP_NAME and APP_LONG_NAME will no longer
+# If uncommented (and set to false), APP_NAME and APP_LONG_NAME will no longer 
 #  be passed to the wrapper. See documentation for details.
 #APP_NAME_PASS_TO_WRAPPER=false
 
@@ -55,7 +65,7 @@ WRAPPER_CONF="../conf/wrapper.conf"
 PRIORITY=
 
 # Location of the pid file.
-PIDDIR="../work"
+PIDDIR="."
 
 # PIDFILE_CHECK_PID tells the script to double check whether the pid in the pid
 #  file actually exists and belongs to this application.  When not set, only
@@ -68,12 +78,21 @@ PIDFILE_CHECK_PID=true
 #  By default the command will be expected to be the first parameter.
 #FIXED_COMMAND=console
 
-# PASS_THROUGH tells the script to pass all arguments through to the JVM
-#  as is.  If PASS_THROUGH is set to true and FIXED_COMMAND is specified
-#  then all arguments will be passed. If PASS_THROUGH is set to true but
-#  FIXED_COMMAND is not specified then all arguments starting with the
-#  second will be passed.
-#PASS_THROUGH=true
+# PASS_THROUGH controls how the script arguments should be passed to the
+#  Wrapper. Possible values are:
+#  - commented or 'false': the arguments will be ignored (not passed).
+#  - 'app_args' or 'true': the arguments will be passed through the Wrapper as
+#                          arguments for the Java Application.
+#  - 'both': both Wrapper properties and Application arguments can be passed to
+#            the Wrapper. The Wrapper properties come in first position. The
+#            user can optionally add a '--' separator followed by application
+#            arguments.
+# NOTE - If FIXED_COMMAND is set to true the above applies to all arguments,
+#        otherwise it applies to arguments starting with the second.
+# NOTE - Passing arguments is only valid with the following commands:
+#          - 'console'
+#          - 'start', 'restart', 'condrestart' (if not installed as a daemon)
+#PASS_THROUGH=app_args
 
 # If uncommented, causes the Wrapper to be shutdown using an anchor file.
 #  When launched with the 'start' command, it will also ignore all INT and
@@ -84,7 +103,7 @@ PIDFILE_CHECK_PID=true
 #  initialization tasks and it may be desirable to wait a few seconds
 #  before returning.  For example, to delay the invocation of following
 #  startup scripts.  Setting WAIT_AFTER_STARTUP to a positive number will
-#  cause the start command to delay for the indicated period of time
+#  cause the start command to delay for the indicated period of time 
 #  (in seconds).
 WAIT_AFTER_STARTUP=0
 
@@ -124,13 +143,13 @@ WAIT_FOR_STARTED_TIMEOUT=120
 # NOTE - In case 'su' is not in the PATH, you can set the absolute path here,
 #  for example:
 #  SU_BIN=/bin/su
-# NOTE - For Red Hat, the script will use '/sbin/runuser' if it is present and
+# NOTE - For Red Hat, the script will use '/sbin/runuser' if it is present and 
 #  ignore the value of SU_BIN.
 SU_BIN=su
 
 # Set option(s) for 'su' or 'runuser'.
 # In case the user set in RUN_AS_USER has no bash set, the 'su' command will fail.
-# The workaround for GNU/Linux system is to specify which bash to use with
+# The workaround for GNU/Linux system is to specify which bash to use with 
 #  the '-s' option.
 #SU_OPTS="-s /bin/bash"
 
@@ -138,10 +157,10 @@ SU_BIN=su
 #BRIEF_USAGE=true
 
 # Set which service management tool to use.
-# Possible values are:
+# Possible values are: 
 #   for linux...: auto, systemd, upstart, initd
 #   for aix.....: auto, src, initd
-# When set to 'auto', this script file will try to detect in the order of the
+# When set to 'auto', this script file will try to detect in the order of the 
 # list for each platform which service management tool to use to install the Wrapper.
 SERVICE_MANAGEMENT_TOOL=auto
 
@@ -161,7 +180,7 @@ SYSTEMD_KILLMODE=control-group
 PLIST_DOMAIN=org.tanukisoftware.wrapper
 
 # When installing on Mac OSX platforms, this parameter controls whether the daemon
-#  is to be kept continuously running or to let demand and conditions control the
+#  is to be kept continuously running or to let demand and conditions control the 
 #  invocation.
 MACOSX_KEEP_RUNNING="false"
 
@@ -183,15 +202,74 @@ MACOSX_KEEP_RUNNING="false"
 RUN_LEVEL=20
 
 # List of files to source prior to executing any commands. Use ';' as delimiter.
-# For example:
+# For example: 
 #  FILES_TO_SOURCE="/home/user/.bashrc;anotherfile;../file3"
 FILES_TO_SOURCE=
 
 # Do not modify anything beyond this point
 #-----------------------------------------------------------------------------
 
+checkIsRoot() {
+    if [ `id | sed 's/^uid=//;s/(.*$//'` != "0" ] ; then
+        IS_ROOT=false
+    else
+        IS_ROOT=true
+    fi
+}
+
+gettext() {
+    "$WRAPPER_CMD" --translate "$1" "$WRAPPER_CONF" 2>/dev/null
+    if [ $? != 0 ] ; then 
+        echo "$1"
+    fi
+}
+
+resolveIdLocation() {
+    if [ "X$ID_BIN" = "X" ] ; then
+        # On Solaris, the version in /usr/xpg4/bin should be used.
+        ID_BIN="/usr/xpg4/bin/id"
+        if [ ! -x "$ID_BIN" ] ; then
+            ID_BIN="id"
+            result=`command -v id 2>/dev/null`
+            if [ $? -ne 0 ] ; then
+                ID_BIN="/usr/bin/id"
+                if [ ! -x "$ID_BIN" ] ; then
+                    eval echo `gettext 'Unable to locate "id".'`
+                    eval echo `gettext 'Please report this message along with the location of the command on your system.'`
+                    exit 1
+                fi
+            fi
+        fi
+    fi
+}
+
+resolveCurrentUser() {
+    if [ "X$CURRENT_USER" = "X" ] ; then
+        resolveIdLocation
+        CURRENT_USER=`$ID_BIN -u -n 2>/dev/null`
+    fi
+}
+
+resolvePidofLocation() {
+    if [ "X$PIDOF_BIN" = "X" ] ; then
+        PIDOF_BIN="pidof"
+        result=`command -v pidof 2>/dev/null`
+        if [ $? -ne 0 ] ; then
+            PIDOF_BIN="/bin/pidof"
+            if [ ! -x "$PIDOF_BIN" ] ; then
+                PIDOF_BIN="/usr/sbin/pidof"
+                if [ ! -x "$PIDOF_BIN" ] ; then
+                    eval echo `gettext 'Unable to locate "pidof".'`
+                    eval echo `gettext 'Please report this message along with the location of the command on your system.'`
+                    exit 1
+                fi
+            fi
+        fi
+    fi
+}
+
 # check if we are running under Cygwin terminal.
-# Note: on some OS's (for example Solaris, MacOS), -o is not a valid parameter
+# Note: on some OS's (for example Solaris, MacOS), -o is not a valid parameter 
 # and it shows an error message. We redirect stderr to null so the error message
 # doesn't show up.
 CYGWIN=`uname -o 2>/dev/null`
@@ -199,13 +277,6 @@ if [ "$CYGWIN" = "Cygwin" ]
 then
   eval echo `gettext 'This script is not compatible with Cygwin.  Please use the Wrapper batch files to control the Wrapper.'`
   exit 1
-fi
-
-if [ -n "$FIXED_COMMAND" ]
-then
-    COMMAND="$FIXED_COMMAND"
-else
-    COMMAND="$1"
 fi
 
 # check if there is a parameter "sysd"
@@ -216,12 +287,9 @@ if [ $# -gt 1 ] ; then
     fi
 fi
 
-# default location for the service file
-SYSTEMD_SERVICE_FILE="/etc/systemd/system/$APP_NAME.service"
-
 # Required for HP-UX Startup
 if [ `uname -s` = "HP-UX" -o `uname -s` = "HP-UX64" ] ; then
-        PATH=$PATH:/usr/bin
+    PATH=$PATH:/usr/bin
 fi
 
 # Get the fully qualified path to the script
@@ -231,6 +299,12 @@ case $0 in
         ;;
     *)
         PWD=`pwd`
+        if [ $? -ne 0 ] ; then
+            # On some systems pwd may fail if one of the parent folder has insufficient permissions.
+            #  Is there a way to access the current location which would allow to print the permissions
+            #  for each folder like we do below?
+            exit 1
+        fi
         SCRIPT="$PWD/$0"
         ;;
 esac
@@ -270,8 +344,92 @@ do
     fi
 done
 
+# Try to source a file with the same filename as the script and with the '.shconf' extension.
+case $REALPATH in
+    *.sh)
+        SHCONF_FILE=`echo $REALPATH | rev | cut -d "." -f2- | rev`
+        ;;
+    *)
+        SHCONF_FILE="$REALPATH"
+        ;;
+esac
+
+SHCONF_FILE="${SHCONF_FILE}.shconf"
+
+if [ -f "$SHCONF_FILE" ] ; then
+    if [ ! -x "$SHCONF_FILE" ] ; then
+        # We should stop here because the configuration expected in the shconf file will not be loaded.
+        eval echo `gettext 'Found $SHCONF_FILE but could not execute it. Please make sure that the file has execute permissions.'`
+        exit 1
+    fi
+    . "$SHCONF_FILE"
+fi
+
+if [ -n "$FIXED_COMMAND" ] ; then
+    COMMAND="$FIXED_COMMAND"
+    FIRST_ARG=$1
+else
+    COMMAND="$1"
+    FIRST_ARG=$2
+fi
+
+if [ "X${PASS_THROUGH}" = "Xtrue" -o "X${PASS_THROUGH}" = "Xapp_args" ] ; then
+    PASS_THROUGH=app_args
+elif [ "X${PASS_THROUGH}" != "Xboth" ] ; then
+    PASS_THROUGH=false
+fi
+
 # Get the location of the script.
 REALDIR=`dirname "$REALPATH"`
+
+if [ "X$RUN_AS_USER" != "X" ] ; then
+    CHECK_FOLDER_PERMISSIONS=0
+    if [ "$COMMAND" = "console" -o "$COMMAND" = "start" -o "$COMMAND" = "restart" -o "$COMMAND" = "condrestart" -o "$COMMAND" = "install" -o "$COMMAND" = "installstart" ] ; then
+        checkIsRoot
+        if [ "$IS_ROOT" = "true" ] ; then
+            if [ -f "/sbin/runuser" -a $COMMAND != "console" ] ; then
+                result=`/sbin/runuser - $RUN_AS_USER -c "cd \"${REALDIR}\"" $SU_OPTS 2>/dev/null`
+            else
+                result=`$SU_BIN - $RUN_AS_USER -c "cd \"${REALDIR}\"" $SU_OPTS 2>/dev/null`
+            fi
+            CHECK_FOLDER_PERMISSIONS=$?
+        fi
+    fi
+else
+    # Technically REALDIR should not be required for all commands, but in fact the script will fail below if the Wrapper binaries can't be accessed.
+    #  It is thus better to show a message and print folder permissions now.
+    result=`cd "${REALDIR}" 2>/dev/null`
+    CHECK_FOLDER_PERMISSIONS=$?
+fi
+if [ $CHECK_FOLDER_PERMISSIONS -ne 0 ] ; then
+    if [ "X$RUN_AS_USER" != "X" ] ; then
+        CHECK_USER=$RUN_AS_USER
+    else
+        resolveCurrentUser
+        CHECK_USER=$CURRENT_USER
+    fi
+    # Unfortunately the following message will not be translated because currently the Wrapper fails to execute correctly when it can't access to the absolute path.
+    eval echo `gettext 'Failed to access the script using an absolute path. Insufficient permissions may prevent the user \"$CHECK_USER\" from traversing one of the folders. Please check the following permissions:'`
+
+    OIFS=$IFS
+    IFS='/'
+    for DIR in $REALDIR
+    do
+        INT_PATH="${INT_PATH}/$DIR"
+        if [ "$DIR" != "." -a "$DIR" != ".." ] ; then
+            ALL_PATHS="${ALL_PATHS} ${INT_PATH}"
+            result=`cd "${INT_PATH}" 2>/dev/null`
+            if [ $? -ne 0 ] ; then
+                # no access to this folder and so to the rest of the path.
+                break
+            fi
+        fi
+    done
+    IFS=$OIFS
+    ls -dal $ALL_PATHS
+    exit 1
+fi
+
 # Normalize the path
 REALDIR=`cd "${REALDIR}"; pwd`
 
@@ -295,6 +453,26 @@ then
     WRAPPER_CONF=$REALDIR/$WRAPPER_CONF
 fi
 
+# Give default values to $APP_NAME and $APP_LONG_NAME
+DELIMITER="@"
+if [ "X$APP_NAME" = "X" -o "$APP_NAME" = "${DELIMITER}app.name${DELIMITER}" ] ; then
+    APP_NAME=`basename -- "$0"`
+fi
+if [ "X$APP_LONG_NAME" = "X" -o "$APP_LONG_NAME" = "${DELIMITER}app.long.name${DELIMITER}" ] ; then
+    APP_LONG_NAME=$APP_NAME
+fi
+
+# default location for the service file
+SYSTEMD_SERVICE_FILE="/etc/systemd/system/$APP_NAME.service"
+
+# Installation status
+SERVICE_NOT_INSTALLED=0
+SERVICE_INSTALLED_DEFAULT=1
+SERVICE_INSTALLED_SYSTEMD=2
+SERVICE_INSTALLED_UPSTART=4
+SERVICE_INSTALLED_SRC=8
+SERVICE_INSTALLED_SRC_PARTIAL=16 #incomplete installation with SRC (lssrc or lsitab failed to return a record)
+
 # Process ID
 ANCHORFILE="$PIDDIR/$APP_NAME.anchor"
 COMMANDFILE="$PIDDIR/$APP_NAME.command"
@@ -304,15 +482,6 @@ PIDFILE="$PIDDIR/$APP_NAME.pid"
 LOCKDIR="/var/lock/subsys"
 LOCKFILE="$LOCKDIR/$APP_NAME"
 pid=""
-
-# Install status
-installedStatus=0 # 0: not installed
-                  # 1: installed (default)
-                  # 2: installed with systemd
-                  # 3: installed with upstart
-                  # 4: installed with SRC
-                  # 5: incomplete installation with SRC (lssrc or lsitab failed to return a record)
-installedWith=""
 
 # Resolve the location of the 'ps' command
 PS_BIN="/usr/ucb/ps"
@@ -352,7 +521,7 @@ case "$DIST_OS" in
         # HP-UX needs the XPG4 version of ps (for -o args)
         DIST_OS="hpux"
         UNIX95=""
-        export UNIX95
+        export UNIX95   
         ;;
     'darwin')
         DIST_OS="macosx"
@@ -364,43 +533,6 @@ case "$DIST_OS" in
         DIST_OS="zos"
         ;;
 esac
-
-resolveIdLocation() {
-    if [ "X$ID_BIN" = "X" ] ; then
-        # On Solaris, the version in /usr/xpg4/bin should be used.
-        ID_BIN="/usr/xpg4/bin/id"
-        if [ ! -x "$ID_BIN" ] ; then
-            ID_BIN="id"
-            result=`command -v id 2>/dev/null`
-            if [ $? -ne 0 ] ; then
-                ID_BIN="/usr/bin/id"
-                if [ ! -x "$ID_BIN" ] ; then
-                    eval echo `gettext 'Unable to locate "id".'`
-                    eval echo `gettext 'Please report this message along with the location of the command on your system.'`
-                    exit 1
-                fi
-            fi
-        fi
-    fi
-}
-
-resolvePidofLocation() {
-    if [ "X$PIDOF_BIN" = "X" ] ; then
-        PIDOF_BIN="pidof"
-        result=`command -v pidof 2>/dev/null`
-        if [ $? -ne 0 ] ; then
-            PIDOF_BIN="/bin/pidof"
-            if [ ! -x "$PIDOF_BIN" ] ; then
-                PIDOF_BIN="/usr/sbin/pidof"
-                if [ ! -x "$PIDOF_BIN" ] ; then
-                    eval echo `gettext 'Unable to locate "pidof".'`
-                    eval echo `gettext 'Please report this message along with the location of the command on your system.'`
-                    exit 1
-                fi
-            fi
-        fi
-    fi
-}
 
 # Compare Versions $1<$2=0, $1==$2=1, $1>$2=2
 compareVersions () {
@@ -449,8 +581,8 @@ then
     else
         # Note: "OnDemand" has been deprecated and replaced from Mac OS X 10.5 by "KeepAlive"
         KEY_KEEP_ALIVE="KeepAlive"
-
-        if [ "X`/usr/sbin/sysctl -n hw.cpu64bit_capable`" = "X1" ]
+        
+        if [ "X`/usr/sbin/sysctl -n hw.cpu64bit_capable`" = "X1" ]  
         then
             DIST_BITS="64"
         else
@@ -516,7 +648,7 @@ else
                 DIST_BITS="32"
             fi
             DIST_ARCH="ppcbe"
-
+            
             if [ "${DIST_OS}" = "aix" ] ; then
                 DIST_ARCH="ppc"
                 if [ `getconf KERNEL_BITMODE` -eq 64 ]; then
@@ -532,7 +664,7 @@ else
                 DIST_BITS="64"
             else
                 DIST_BITS="32"
-            fi
+            fi    
             ;;
         'sun4u' | 'sparcv9' | 'sparc')
             DIST_ARCH="sparc"
@@ -554,12 +686,26 @@ else
                 DIST_BITS="32"
             fi
             ;;
+        aarch64* | arm64*)
+            # 'aarch64_be', 'aarch64', 'arm64', etc.
+            # => only armhf is 64-bit
+            DIST_ARCH="armhf"
+            DIST_BITS="64"
+            ;;
         armv*)
-            if [ -z "`readelf -A /proc/self/exe | grep Tag_ABI_VFP_args`" ] ; then
-                DIST_ARCH="armel"
-                DIST_BITS="32"
-            else
+            # 'armv8b', 'armv8l', 'armv7l', 'armv5tel', etc.
+            # => armv8 and above should be 64-bit, but it is more reliable to check the bits with getconf.
+            if [ `getconf LONG_BIT` -eq 64 ]; then
                 DIST_ARCH="armhf"
+                DIST_BITS="64"
+            else
+                # Note: The following command returns nothing on SUSE for Raspberry Pi 3 (aarch64).
+                #       An alternative command would be 'dpkg --print-architecture', but dpkg may not exist.
+                if [ -z "`readelf -A /proc/self/exe | grep Tag_ABI_VFP_args`" ] ; then 
+                    DIST_ARCH="armel"
+                else 
+                    DIST_ARCH="armhf"
+                fi
                 DIST_BITS="32"
             fi
             ;;
@@ -588,14 +734,6 @@ else
     ECHOOPT=""
     ECHOOPTC="\c"
 fi
-
-
-gettext() {
-    "$WRAPPER_CMD" --translate "$1" "$WRAPPER_CONF" 2>/dev/null
-    if [ $? != 0 ] ; then
-        echo "$1"
-    fi
-}
 
 outputFile() {
     if [ -f "$1" ]
@@ -628,19 +766,38 @@ detectWrapperBinary() {
 #  and look for the 32-bit binary.  If that doesn't exist either then
 #  look for the default.
 WRAPPER_TEST_CMD=""
-detectWrapperBinary "$WRAPPER_CMD-$DIST_OS-$DIST_ARCH-$DIST_BITS"
+
+BIN_BITS=$DIST_BITS
+if [ ! "$BIN_BITS" = "32" ] ; then
+    # On a 64-bit platform, both Wrapper 32-Bit and 64-Bit can be used.
+    #  Send a request to the Wrapper to know if the license has the 64-bit feature.
+    WRAPPER_CMD_ORIG=$WRAPPER_CMD
+    detectWrapperBinary "$WRAPPER_CMD-$DIST_OS-$DIST_ARCH-$BIN_BITS"
+    if [ ! -z "$WRAPPER_TEST_CMD" ] ; then
+        if [ "$COMMAND" = "console" -o "$COMMAND" = "start" -o "$COMMAND" = "restart" -o "$COMMAND" = "condrestart" -o "$COMMAND" = "installstart" ] ; then
+            "$WRAPPER_CMD" --request_delta_binary_bits "$WRAPPER_CONF" 2>/dev/null
+            if [ $? = 32 ] ; then
+                # License is 32-Bit. Reset and search for 32-Bit Wrapper binaries.
+                WRAPPER_TEST_CMD=""
+                WRAPPER_CMD=$WRAPPER_CMD_ORIG
+                BIN_BITS=32
+            fi
+        fi
+    fi
+fi
+
 if [ -z "$WRAPPER_TEST_CMD" ] ; then
     detectWrapperBinary "$WRAPPER_CMD-$DIST_OS-$DIST_ARCH-32"
 fi
 if [ -z "$WRAPPER_TEST_CMD" ] ; then
     detectWrapperBinary "$WRAPPER_CMD"
 fi
-
+    
 
 if [ -z "$WRAPPER_TEST_CMD" ] ; then
     eval echo `gettext 'Unable to locate any of the following binaries:'`
-    outputFile "$WRAPPER_CMD-$DIST_OS-$DIST_ARCH-$DIST_BITS"
-    if [ ! "$DIST_BITS" = "32" ] ; then
+    outputFile "$WRAPPER_CMD-$DIST_OS-$DIST_ARCH-$BIN_BITS"
+    if [ ! "$BIN_BITS" = "32" ] ; then
         outputFile "$WRAPPER_CMD-$DIST_OS-$DIST_ARCH-32"
     fi
     outputFile "$WRAPPER_CMD"
@@ -751,18 +908,94 @@ fi
 
 prepAdditionalParams() {
     ADDITIONAL_PARA=""
-    if [ ! -n "$PASS_THROUGH" ]
-    then
-        PASS_THROUGH=false
-    fi
-    if [ $PASS_THROUGH = true ] ; then
-        ADDITIONAL_PARA="--"
+    if [ "X${PASS_THROUGH}" = "Xapp_args" -o "X${PASS_THROUGH}" = "Xboth" ] ; then
+        if [ "X${PASS_THROUGH}" = "Xapp_args" ] ; then
+            ADDITIONAL_PARA="--"
+            ARGS_ARE_APP_PARAMS=true
+        fi
         while [ -n "$1" ] ; do
+            if [ ! -n "$ARGS_ARE_APP_PARAMS" ] ; then
+                if [ "$1" = "--" ] ; then
+                    ARGS_ARE_APP_PARAMS=true
+                else
+                    # Check that the arg matches the pattern of a property
+                    case "$1" in
+                        wrapper.*=*)
+                            # Correct, nothing to do
+                            ;;
+                        *=*)
+                            # The property name is not starting with 'wrapper.' so invalid.
+                            COMMAND_PROP=${1%%=*}
+                            eval echo `gettext "WARNING: Encountered an unknown configuration property \'${COMMAND_PROP}\'. When PASS_THROUGH is set to \'both\', any argument before \'--\' should target a valid Wrapper configuration property."`
+                            ;;
+                        *)
+                            # Not a valid assignment.
+                            eval echo `gettext "WARNING: Encountered an invalid configuration property assignment \'$1\'. When PASS_THROUGH is set to \'both\', any argument before \'--\' should be in the format '<property_name>=<value>'."`
+                            ;;
+                    esac
+                fi
+            fi
             ADDITIONAL_PARA="$ADDITIONAL_PARA \"$1\""
             shift
         done
-    elif [ -n "$1" ] ; then
-        eval echo `gettext "WARNING: Extra arguments will be ignored. Please run \'$0 help\' for usage."`
+    fi
+}
+
+resolveSysLocale() {
+    # First try to get the system encoding from /etc/default/locale.
+    # Note: For some reason, the system encoding stored in /etc/default/locale and the value returned by localectl may differ.
+    #       When using 'localectl set-local', /etc/default/locale is always updated accordingly, but when manually editing /etc/default/locale,
+    #       the output of the command sometimes doesn't get updated. When the values differ, SU uses the same locale as /etc/default/locale,
+    #       so that's why we start trying to get the locale using this method.
+    if [ -f "/etc/default/locale" ] ; then
+        PASS_SYS_LANG=`grep 'LANG=' /etc/default/locale`
+        case "$PASS_SYS_LANG" in
+            LANG=*)
+                PASS_SYS_LANG="$PASS_SYS_LANG "
+                ;;
+            *)
+                PASS_SYS_LANG=""
+                ;;
+        esac
+    fi
+    if [ "X$PASS_SYS_LANG" = "X" ] ; then
+        # Try to get the system encoding using localectl.
+        LOCALECTL_BIN="localectl"
+        result=`command -v $LOCALECTL_BIN 2>/dev/null`
+        if [ $? -ne 0 ] ; then
+            LOCALECTL_BIN="/usr/bin/localectl"
+            if [ ! -x "$LOCALECTL_BIN" ] ; then
+                # Keep the warning for debugging, but don't actually show it because it may be normal for some OS to not have the command. 
+                # echo " WARNING: Could not locate localectl used to get the system locale. The encoding may not be correct when running as $RUN_AS_USER."
+                LOCALECTL_BIN=""
+            fi
+        fi
+        if [ "X$LOCALECTL_BIN" != "X" ] ; then
+            # The first line that localectl outputs should look like this: '    System Locale: n/a'
+            PASS_SYS_LANG=`$LOCALECTL_BIN | grep "System Locale" | awk '{print $3}' 2>/dev/null`
+            case "$PASS_SYS_LANG" in
+                *n/a*)
+                    # No system locale set. Skip.
+                    PASS_SYS_LANG=""
+                    ;;
+                LANG=*)
+                    PASS_SYS_LANG="$PASS_SYS_LANG "
+                    ;;
+                *)
+                    # echo " WARNING: Failed to parse the output of localectl. The encoding may not be correct when running as $RUN_AS_USER.'"
+                    PASS_SYS_LANG=""
+                    ;;
+            esac
+        fi
+    fi
+}
+
+resolveSuLocale() {
+    if [ "X$PASS_SU_LANG" = "X" -a "X$RUN_AS_USER" != "X" ] ; then
+        PASS_SU_LANG=`$SU_BIN - $RUN_AS_USER -c "locale" $SU_OPTS | grep "LANG=" 2>/dev/null`
+        if [ "X$PASS_SU_LANG" != "X" ] ; then
+            PASS_SU_LANG="$PASS_SU_LANG "
+        fi
     fi
 }
 
@@ -773,8 +1006,8 @@ checkUser() {
     # Check the configured user.  If necessary rerun this script as the desired user.
     if [ "X$RUN_AS_USER" != "X" ]
     then
-        resolveIdLocation
-        if [ "`$ID_BIN -u -n`" = "$RUN_AS_USER" ]
+        resolveCurrentUser
+        if [ "$CURRENT_USER" = "$RUN_AS_USER" ]
         then
             # Already running as the configured user.  Avoid password prompts by not calling su.
             RUN_AS_USER=""
@@ -796,7 +1029,7 @@ checkUser() {
         then
             if [ "X$1" != "X" ]
             then
-                # Resolve the primary group
+                # Resolve the primary group 
                 RUN_AS_GROUP=`groups $RUN_AS_USER | awk '{print $3}' | tail -1`
                 if [ "X$RUN_AS_GROUP" = "X" ]
                 then
@@ -825,13 +1058,27 @@ checkUser() {
 
         # runuser doesn't transmit signals (such as ctrl+c) to the Wrapper. This causes problem when running as a console.
         # When the Wrapper is launched as a service on RedHat, runuser should be used in preference to su.
+        resolveSysLocale
         if [ -f "/sbin/runuser" -a $COMMAND != "console" ] ; then
-            /sbin/runuser - $RUN_AS_USER -c "\"$REALPATH\" $ADDITIONAL_PARA" $SU_OPTS
+            # Unlike su, runuser doesn't use the default system locale. Force passing it for consistency.
+            if [ "X$PASS_SYS_LANG" = "X" ] ; then
+                # Fallback to the same locale as when using SU (which should be the system encoding).
+                resolveSuLocale
+                PASS_SYS_LANG=$PASS_SU_LANG
+            fi
+            /sbin/runuser - $RUN_AS_USER -c "$PASS_SYS_LANG\"$REALPATH\" $ADDITIONAL_PARA" $SU_OPTS
         else
-            $SU_BIN - $RUN_AS_USER -c "\"$REALPATH\" $ADDITIONAL_PARA" $SU_OPTS
+            # Normally SU should use the default system locale, but make sure it is the case.
+            resolveSuLocale
+            if [ "X$PASS_SU_LANG" != "X" -a "$PASS_SU_LANG" != "$PASS_SYS_LANG" ] ; then
+                PASS_SU_LANG=$PASS_SYS_LANG
+            else
+                PASS_SU_LANG=""
+            fi
+            $SU_BIN - $RUN_AS_USER -c "$PASS_SU_LANG\"$REALPATH\" $ADDITIONAL_PARA" $SU_OPTS
         fi
         RUN_AS_USER_EXITCODE=$?
-
+        
         # we check if the previous command has failed
         if [ $RUN_AS_USER_EXITCODE -ne 0 ]
         then
@@ -843,7 +1090,7 @@ checkUser() {
                  echo ""
             fi
         fi
-
+        
         # Now that we are the original user again, we may need to clean up the lock file.
         if [ "X$LOCKPROP" != "X" ]
         then
@@ -865,14 +1112,14 @@ checkUser() {
 # Try to fork by executing a simple command.
 # With this function, we want to make sure we are able to fork.
 checkForkCommand() {
-
+    
     if [ -f "/sbin/runuser" -a $COMMAND != "console" ] ; then
         /sbin/runuser - $RUN_AS_USER -c "ls \"$REALPATH\"" $SU_OPTS > /dev/null 2>&1 &
     else
         $SU_BIN - $RUN_AS_USER -c "ls \"$REALPATH\"" $SU_OPTS > /dev/null 2>&1 &
     fi
     CHECK_EXITCODE=$?
-
+    
     if [ $CHECK_EXITCODE -ne 0 ]
     then
         # clearly a problem with forking
@@ -906,7 +1153,7 @@ getpid() {
                         'freebsd')
                             pidtest=`$PS_BIN -p $pid -o args | tail -1`
                             if [ "X$pidtest" = "XCOMMAND" ]
-                            then
+                            then 
                                 pidtest=""
                             fi
                             ;;
@@ -1014,7 +1261,7 @@ getstatus() {
     then
         STATUS="Unknown"
     fi
-
+    
     JAVASTATUS=
     if [ -f "$JAVASTATUSFILE" ]
     then
@@ -1060,7 +1307,7 @@ testpid() {
 
 launchdtrap() {
     stopit
-    exit
+    exit 
 }
 
 waitForWrapperStop() {
@@ -1073,13 +1320,11 @@ waitForWrapperStop() {
 
 launchinternal() {
     getpid
-    trap launchdtrap TERM
+    trap launchdtrap TERM 
     if [ "X$pid" = "X" ]
-    then
-        prepAdditionalParams "$@"
-
+    then 
         # The string passed to eval must handles spaces in paths correctly.
-        COMMAND_LINE="$CMDNICE \"$WRAPPER_CMD\" \"$WRAPPER_CONF\" wrapper.syslog.ident=\"$APP_NAME\" wrapper.pidfile=\"$PIDFILE\" wrapper.daemonize=TRUE $APPNAMEPROP $ANCHORPROP $IGNOREPROP $STATUSPROP $COMMANDPROP $LOCKPROP wrapper.script.version=3.5.34 $ADDITIONAL_PARA"
+        COMMAND_LINE="$CMDNICE \"$WRAPPER_CMD\" \"$WRAPPER_CONF\" wrapper.syslog.ident=\"$APP_NAME\" wrapper.pidfile=\"$PIDFILE\" wrapper.daemonize=TRUE $APPNAMEPROP $ANCHORPROP $IGNOREPROP $STATUSPROP $COMMANDPROP $LOCKPROP wrapper.script.version=3.5.40 $ADDITIONAL_PARA"
         eval $COMMAND_LINE
     else
         eval echo `gettext '$APP_LONG_NAME is already running.'`
@@ -1102,7 +1347,7 @@ console() {
         prepAdditionalParams "$@"
 
         # The string passed to eval must handles spaces in paths correctly.
-        COMMAND_LINE="$CMDNICE \"$WRAPPER_CMD\" \"$WRAPPER_CONF\" wrapper.syslog.ident=\"$APP_NAME\" wrapper.pidfile=\"$PIDFILE\" $APPNAMEPROP $ANCHORPROP $STATUSPROP $COMMANDPROP $LOCKPROP wrapper.script.version=3.5.34 $ADDITIONAL_PARA"
+        COMMAND_LINE="$CMDNICE \"$WRAPPER_CMD\" \"$WRAPPER_CONF\" wrapper.syslog.ident=\"$APP_NAME\" wrapper.pidfile=\"$PIDFILE\" $APPNAMEPROP $ANCHORPROP $STATUSPROP $COMMANDPROP $LOCKPROP wrapper.script.version=3.5.40 $ADDITIONAL_PARA"
         eval $COMMAND_LINE
         COMMAND_EXIT_CODE=$?
         if [ $COMMAND_EXIT_CODE -ne 0 ] ; then
@@ -1116,8 +1361,8 @@ console() {
 
 waitforjavastartup() {
     getstatus
-    eval echo $ECHOOPT `gettext 'Waiting for $APP_LONG_NAME...$ECHOOPTC'`
-
+    eval echo $ECHOOPT `gettext 'Waiting for $APP_LONG_NAME...$ECHOOPTC'` 
+    
     # Wait until the timeout or we have something besides Unknown.
     counter=15
     while [ "$JAVASTATUS" = "Unknown" -a $counter -gt 0 -a -n "$JAVASTATUS" ] ; do
@@ -1126,8 +1371,8 @@ waitforjavastartup() {
         getstatus
         counter=`expr $counter - 1`
     done
-
-    if [ -n "$WAIT_FOR_STARTED_TIMEOUT" ] ; then
+    
+    if [ -n "$WAIT_FOR_STARTED_TIMEOUT" ] ; then 
         counter=$WAIT_FOR_STARTED_TIMEOUT
     else
         counter=120
@@ -1140,13 +1385,13 @@ waitforjavastartup() {
     done
     echo ""
 }
-
+ 
 startwait() {
     if [ $WAIT_FOR_STARTED_STATUS = true ]
     then
         waitforjavastartup
     fi
-    # Sleep for a few seconds to allow for intialization if required
+    # Sleep for a few seconds to allow for intialization if required 
     #  then test to make sure we're still running.
     #
     i=0
@@ -1166,17 +1411,17 @@ startwait() {
         else
             eval echo `gettext ' running: PID:$pid'`
         fi
-    else
+    else 
         echo ""
     fi
 }
 
 mustBeRootOrExit() {
-    if [ `id | sed 's/^uid=//;s/(.*$//'` != "0" ] ; then
+    checkIsRoot
+    if [ "$IS_ROOT" != "true" ] ; then
         eval echo `gettext 'Must be root to perform this action.'`
         exit 1
     fi
-    IS_ROOT=true
 }
 
 mustBeStoppedOrExit() {
@@ -1187,6 +1432,8 @@ mustBeStoppedOrExit() {
     fi
 }
 
+# Detect if the Wrapper is running
+# Returns 0 if the process is running, otherwise returns 1.
 checkRunning() {
     getpid
     if [ "X$pid" = "X" ] ; then
@@ -1194,16 +1441,18 @@ checkRunning() {
         if [ "X$1" = "X1" ] ; then
             exit 1
         fi
+        return 1
     fi
+    return 0
 }
 
 
 macosxStart() {
     mustBeRootOrExit
     mustBeStoppedOrExit
-
+    
     eval echo `gettext 'Starting $APP_LONG_NAME with launchd...'`
-
+    
     # If the daemon was just installed, it may not be loaded.
     LOADED_PLIST=`launchctl list | grep ${APP_PLIST_BASE}`
     if [ "X${LOADED_PLIST}" = "X" ] ; then
@@ -1214,7 +1463,7 @@ macosxStart() {
     if [ "X$pid" = "X" ] ; then
         launchctl start ${APP_PLIST_BASE}
     fi
-
+    
     startwait
 }
 
@@ -1222,9 +1471,9 @@ macosxStop() {
     mustBeRootOrExit
     # The daemon must be running.
     checkRunning "1"
-
+    
     eval echo `gettext 'Stopping $APP_LONG_NAME...'`
-
+    
     if [ "$MACOSX_KEEP_RUNNING" = "true" ] ; then
         echo ""
         eval echo `gettext 'Daemon is set to be kept continuously running and it will be automatically restarted.'`
@@ -1250,7 +1499,7 @@ macosxRestart() {
         sleep 1
         launchctl load   "/Library/LaunchDaemons/${APP_PLIST}"
     fi
-
+    
     startwait
 }
 
@@ -1260,7 +1509,7 @@ upstartDetection() {
     if [ ! -d "/etc/init" ] ; then
         return 1
     fi
-
+    
     INITCTL_BIN="initctl"
     result=`command -v $INITCTL_BIN 2>/dev/null`
     if [ $? -ne 0 ] ; then
@@ -1269,7 +1518,7 @@ upstartDetection() {
             return 1
         fi
     fi
-
+    
     result=`$INITCTL_BIN version 2>/dev/null`
     if [ $? -eq 0 ] ; then
         # if the word "upstart" is in the result, then we assume upstart is installed.
@@ -1278,15 +1527,15 @@ upstartDetection() {
             return 0
         fi
     fi
-
-    # The command /sbin/initctl may fail if the user doesn't have enough privilege
+    
+    # The command /sbin/initctl may fail if the user doesn't have enough privilege 
     # but that doesn't mean upstart is not present.
-    # In this case we can assume upstart exists if the service was previously
+    # In this case we can assume upstart exists if the service was previously 
     # installed by the root user.
     if  [ -f "/etc/init/${APP_NAME}.conf" ] ; then
         return 0
     fi
-
+    
     return 1
 }
 
@@ -1297,9 +1546,9 @@ upstartInstall() {
         eval echo `gettext 'Unable to install the $APP_LONG_NAME daemon because upstart does not exist.'`
         return 1
     fi
-
+    
     eval echo `gettext ' Installing the $APP_LONG_NAME daemon using upstart...'`
-    if [ -f "${REALDIR}/${APP_NAME}.install" ] ; then
+    if [ -f "${REALDIR}/${APP_NAME}.install" ] ; then 
         eval echo `gettext ' a custom upstart conf file ${APP_NAME}.install found'`
         cp "${REALDIR}/${APP_NAME}.install" "/etc/init/${APP_NAME}.conf"
     else
@@ -1319,9 +1568,9 @@ upstartStart() {
     mustBeStoppedOrExit
 
     eval echo `gettext 'Starting $APP_LONG_NAME with upstart...'`
-
+    
     /sbin/start ${APP_NAME}
-
+        
     startwait
 }
 
@@ -1331,7 +1580,7 @@ upstartStop() {
     checkRunning "1"
 
     eval echo `gettext 'Stopping $APP_LONG_NAME...'`
-
+    
     /sbin/stop ${APP_NAME}
 }
 
@@ -1349,9 +1598,15 @@ upstartRestart() {
         eval echo `gettext 'Restarting $APP_LONG_NAME...'`
 
         /sbin/restart ${APP_NAME}
-
+        
         startwait
     fi
+}
+
+upstartRemove() {
+    stopit "0"
+    eval echo `gettext ' Removing $APP_LONG_NAME daemon from upstart...'`
+    rm "/etc/init/${APP_NAME}.conf"
 }
 
 # Method to check if systemd is running.
@@ -1373,9 +1628,9 @@ systemdInstall() {
       eval echo `gettext 'Unable to install the $APP_LONG_NAME daemon because systemd does not exist.'`
       return 1
     fi
-
+    
     eval echo `gettext ' Installing the $APP_LONG_NAME daemon using systemd...'`
-    if [ -f "${REALDIR}/${APP_NAME}.service" ] ; then
+    if [ -f "${REALDIR}/${APP_NAME}.service" ] ; then 
         eval echo `gettext ' a custom service file ${APP_NAME}.service found'`
         cp "${REALDIR}/${APP_NAME}.service" "${SYSTEMD_SERVICE_FILE}"
     else
@@ -1386,8 +1641,18 @@ systemdInstall() {
         echo ""                                 >> "${SYSTEMD_SERVICE_FILE}"
         echo "[Service]"                        >> "${SYSTEMD_SERVICE_FILE}"
         echo "Type=forking"                     >> "${SYSTEMD_SERVICE_FILE}"
-        echo "ExecStart=${REALPATH} start sysd" >> "${SYSTEMD_SERVICE_FILE}"
-        echo "ExecStop=${REALPATH} stop sysd"   >> "${SYSTEMD_SERVICE_FILE}"
+        case "${REALPATH}" in
+            *\ *)
+                # REALPATH contains space
+                echo 'ExecStart=/usr/bin/env "'${REALPATH}'" start sysd' >> "${SYSTEMD_SERVICE_FILE}"
+                echo 'ExecStop=/usr/bin/env "'${REALPATH}'" stop sysd'   >> "${SYSTEMD_SERVICE_FILE}"
+                ;;
+            *)
+                echo "ExecStart=${REALPATH} start sysd" >> "${SYSTEMD_SERVICE_FILE}"
+                echo "ExecStop=${REALPATH} stop sysd"   >> "${SYSTEMD_SERVICE_FILE}"
+                echo "PIDFile=${PIDFILE}"               >> "${SYSTEMD_SERVICE_FILE}"
+                ;;
+        esac
         if [ "X${RUN_AS_USER}" != "X" ] ; then
           echo "User=${RUN_AS_USER}"            >> "${SYSTEMD_SERVICE_FILE}"
         fi
@@ -1409,14 +1674,14 @@ systemdInstall() {
 systemdStart() {
     # Don't do mustBeRootOrExit because systemd will ask for the password when not root
     mustBeStoppedOrExit
-
+    
     result=`systemctl -p KillMode show $APP_NAME`
     if [ $result != "KillMode=$SYSTEMD_KILLMODE" ] ; then
         eval echo `gettext "SYSTEMD_KILLMODE is set to \'${SYSTEMD_KILLMODE}\' on the top of the script, but the daemon is running with $result."`
         eval echo `gettext 'The daemon must be reinstalled for the value of SYSTEMD_KILLMODE to take effect.'`
         exit 1
     fi
-
+    
     eval echo `gettext 'Starting $APP_LONG_NAME with systemd...'`
 
     systemctl start $APP_NAME
@@ -1424,7 +1689,7 @@ systemdStart() {
         eval echo `gettext 'Failed to start service $APP_NAME'`
         exit 1
     fi
-
+    
     startwait
 }
 
@@ -1453,7 +1718,7 @@ systemdRestart() {
         eval echo `gettext 'Failed to restart service $APP_NAME'`
         exit 1
     fi
-
+    
     startwait
 }
 
@@ -1480,18 +1745,18 @@ srcInstall() {
       eval echo `gettext 'Unable to install the $APP_LONG_NAME daemon because SRC does not exist.'`
       return 1
     fi
-
+    
     if [ "X$RUN_AS_USER" = "X" ] ; then
         USERID="0"
     else
         resolveIdLocation
         USERID=`$ID_BIN -u "$RUN_AS_USER"`
-        if [ $? -ne 0 ] ; then
+        if [ $? -ne 0 ] ; then 
             eval echo `gettext 'Failed to get user id for $RUN_AS_USER'`
             exit 1
         fi
     fi
-
+    
     validateAppNameLength
     /usr/bin/mkssys -s "$APP_NAME" -p "$REALPATH" -a "launchdinternal" -u "$USERID" -f 9 -n 15 -S
     /usr/sbin/mkitab "$APP_NAME":2:once:"/usr/bin/startsrc -s \"${APP_NAME}\" >/dev/console 2>&1"
@@ -1508,7 +1773,7 @@ srcStart() {
         eval echo `gettext 'Failed to start service $APP_NAME'`
         exit 1
     fi
-
+    
     startwait
 }
 
@@ -1539,139 +1804,24 @@ srcRestart() {
     srcStart
 }
 
-# Re-set wrapper.java.command in conf/wrapper-override.conf
-# This function takes two parameters
-# param1 : the path to the java command e.g agent/jre/java
-# param2 : the path to the agent/conf folder
-setJavaCommand() {
-    if grep -q 'wrapper.java.command=' "$2/wrapper-override.conf"
-    then
-        sed -i -- '/wrapper.java.command=.*/d' "$2/wrapper-override.conf"
-    fi
-
-    echo "Setting wrapper.java.command in wrapper-override.conf to: $1"
-    echo "">>"$2/wrapper-override.conf"
-    echo "wrapper.java.command=$1">>"$2/wrapper-override.conf"
-}
-
-# Check java version.
-# This function takes one parameter which should be the path to a java command.
-# It will check the version of this java, if it's 1.8 or later return 0, else return 1.
-checkJavaVersion() {
-        version=$($1 -version 2>&1 | sed -n ';s/.* version "\(.*\)\.\(.*\)\..*".*/\1\2/p;')
-        display_version=$($1 -version 2>&1 | sed -n ';s/.* version "\(.*\)"/\1/p;')
-
-        if [ "$version" -eq "18" ]
-        then
-            return 0
-        else
-            return 1
-        fi
-}
-
-# Check the update version of java.
-# This function takes one parameter which should be the path to a java command.
-# It will check the update version of this java, if it's 152 or later, return 0, else return 1.
-checkJavaUpdateVersion() {
-    updateVersion=$($1 -version 2>&1 | sed -n ';s/.* version "\(.*\)_\(.*\)"/\2/p;')
-
-    # If there is no java update version, set it directly, else check if this java update version
-    # is later than the one we have.
-    if [ -z "$currentJavaUpdateVersion" ]
-    then
-	currentJavaUpdateVersion=$updateVersion
-        currentJavaPath=$1
-    elif [ $updateVersion -ge $currentJavaUpdateVersion ]
-    then
-        currentJavaUpdateVersion=$updateVersion
-        currentJavaPath=$1
-    fi
-
-    # If the update version is greater or equal than 152, it's a good one, return 0
-    if [ $updateVersion -ge 152 ]
-    then
-        return 0
-    else
-        return 1
-    fi
-}
-
 start() {
     mustBeStoppedOrExit
-
+    
     eval echo `gettext 'Starting $APP_LONG_NAME...'`
-
+    
     prepAdditionalParams "$@"
 
-##########################################################################################################
-# Check which java command to use, if jre exist in agent folder, use this one.
-# Otherwise, check the version of JAVA_HOME, if it's later than 1.8, use it.
-# Otherwise, check java in PATH, if it's later than 1.8, use it.
-# Otherwise, give an error indicating that user should manually install java.
-##########################################################################################################
-    CONF_PATH="${REALPATH%%mid.sh}../conf"
-
-    currentJavaUpdateVersion=""
-    currentJavaPath=""
-
-    if [ -d "jre" ]
-    then
-        JAVA_COMMAND=jre/bin/java
-        setJavaCommand $JAVA_COMMAND $CONF_PATH
-    else
-        WRAPPER_JAVA=`grep 'wrapper.java.command=' "$CONF_PATH/wrapper-override.conf" | cut -d '=' -f2`
-	PATH_JAVA=`which java`
-
-        if [ ! -z "$WRAPPER_JAVA" ] && checkJavaVersion $WRAPPER_JAVA && checkJavaUpdateVersion $WRAPPER_JAVA
-        then
-            echo "$WRAPPER_JAVA in wrapper-override is a valid java command, using it to start mid server."
-            succeed=0
-        elif [ ! -z $JAVA_HOME ] && checkJavaVersion $JAVA_HOME/bin/java && checkJavaUpdateVersion $JAVA_HOME/bin/java
-        then
-            echo "Using java from JAVA_HOME..."
-            setJavaCommand "$JAVA_HOME/bin/java" "$CONF_PATH"
-            succeed=0
-        elif [ ! -z "$PATH_JAVA" ]  && checkJavaVersion $PATH_JAVA && checkJavaUpdateVersion $PATH_JAVA
-        then
-            echo "Using java from path..."
-            setJavaCommand "$PATH_JAVA" "$CONF_PATH"
-            succeed=0
-        fi
-
-        if [ -z "$succeed" ]
-        then
-        # If we are here, we expect to use currentJavaPath, if it is not set, it means we didn't find a good java to use
-	    if [ -z "$currentJavaPath" ]
-	    then
-	        echo "Can't find a valid java in the OS, please install JRE 1.8.0_152 or later 1.8 version."
-		exit 1
-	    elif [ "a$currentJavaPath" != "a$WRAPPER_JAVA" ]
-	    then
-	        echo "Warning: Using $currentJavaPath, version is 1.8 update $currentJavaUpdateVersion, it's better to upgrade to 1.8 update 152."
-	        setJavaCommand "$currentJavaPath" "$CONF_PATH"
-	    fi 
-        fi
-    fi
-        
     # The string passed to eval must handles spaces in paths correctly.
-    COMMAND_LINE="$CMDNICE \"$WRAPPER_CMD\" \"$WRAPPER_CONF\" wrapper.syslog.ident=\"$APP_NAME\" wrapper.pidfile=\"$PIDFILE\" wrapper.daemonize=TRUE $APPNAMEPROP $ANCHORPROP $IGNOREPROP $STATUSPROP $COMMANDPROP $LOCKPROP wrapper.script.version=3.5.34 $ADDITIONAL_PARA"
+    COMMAND_LINE="$CMDNICE \"$WRAPPER_CMD\" \"$WRAPPER_CONF\" wrapper.syslog.ident=\"$APP_NAME\" wrapper.pidfile=\"$PIDFILE\" wrapper.daemonize=TRUE $APPNAMEPROP $ANCHORPROP $IGNOREPROP $STATUSPROP $COMMANDPROP $LOCKPROP wrapper.script.version=3.5.40 $ADDITIONAL_PARA"
     eval $COMMAND_LINE
-
+    
     startwait
 }
-
+ 
 stopit() {
     # $1 exit if down flag
-
-    getpid
-    if [ "X$pid" = "X" ]
-    then
-        eval echo `gettext '$APP_LONG_NAME is not running.'`
-        if [ "X$1" = "X1" ]
-        then
-            exit 1
-        fi
-    else
+    checkRunning $1
+    if [ $? -eq 0 ] ; then
         # The daemon should be running.
         eval echo `gettext 'Stopping $APP_LONG_NAME...'`
 
@@ -1717,7 +1867,7 @@ stopit() {
 
             # Check if the process is still running.
             testpid
-
+            
             if [ "X$pid" = "X" ]
                 then
                 # The process is gone, but it is possible that another instance restarted while we waited...
@@ -1725,7 +1875,7 @@ stopit() {
                 PIDFILE_CHECK_PID=""
                 getpid
                 PIDFILE_CHECK_PID=$SAVE_PIDFILE_CHECK_PID
-
+                
                 if [ "X$pid" != "X" ]
                 then
                     # Another process is running.
@@ -1737,7 +1887,7 @@ stopit() {
                     else
                         eval echo `gettext 'The content of $PIDFILE has changed.'`
                         eval echo `gettext 'Another instance of the Wrapper might have started in the meantime.'`
-
+                        
                         # Exit now. Any further actions might compromise the running instance.
                         exit 1
                     fi
@@ -1748,7 +1898,7 @@ stopit() {
         eval echo `gettext 'Stopped $APP_LONG_NAME.'`
     fi
 }
-
+ 
 pause() {
     getpid
     if [ "X$pid" = "X" ] ; then
@@ -1804,108 +1954,114 @@ resume() {
 }
 
 checkInstalled() {
+    # Install status
+    installedStatus=$SERVICE_NOT_INSTALLED
+    installedWith=""
+
     if [ "$DIST_OS" = "solaris" ] ; then
         if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
-            installedStatus=1
-        else
-            installedStatus=0
+            installedStatus=$SERVICE_INSTALLED_DEFAULT
         fi
     elif [ "$DIST_OS" = "linux" ] ; then
         if [ -f /etc/redhat-release -o -f /etc/redhat_version -o -f /etc/fedora-release ] ; then
-            if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
-                installedStatus=1
-                installedWith="init.d"
-            elif [ -n "$USE_SYSTEMD" -a -f "${SYSTEMD_SERVICE_FILE}" ] ; then
-                installedStatus=2
-                installedWith="systemd"
-            elif [ -f "/etc/init/${APP_NAME}.conf" ] ; then
-                installedStatus=3
-                installedWith="upstart"
-            else
-                installedStatus=0
+            if [ "X$1" != "Xstrict" -o \( -z "$USE_SYSTEMD" -a -z "$USE_UPSTART" \) ] ; then
+                if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
+                    installedStatus=$SERVICE_INSTALLED_DEFAULT
+                    installedWith="init.d"
+                fi
+            fi
+            if [ "X$1" != "Xstrict" -o -n "$USE_SYSTEMD" ] ; then
+                if [ -f "${SYSTEMD_SERVICE_FILE}" ] ; then
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_SYSTEMD`
+                    installedWith="${installedWith}${installedWith:+, }systemd"
+                fi
+            fi
+            if [ "X$1" != "Xstrict" -o -n "$USE_UPSTART" ] ; then
+                if [ -f "/etc/init/${APP_NAME}.conf" ] ; then
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_UPSTART`
+                    installedWith="${installedWith}${installedWith:+, }upstart"
+                fi
             fi
         elif [ -f /etc/SuSE-release ] ; then
-            if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
-                installedStatus=1
-                installedWith="init.d"
-            elif [ -n "$USE_SYSTEMD" -a -f "${SYSTEMD_SERVICE_FILE}" ] ; then
-                installedStatus=2
-                installedWith="systemd"
-            else
-                installedStatus=0
+            if [ "X$1" != "Xstrict" -o \( -z "$USE_SYSTEMD" -a -z "$USE_UPSTART" \) ] ; then
+                if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
+                    installedStatus=$SERVICE_INSTALLED_DEFAULT
+                    installedWith="init.d"
+                fi
             fi
-        elif [ -f /etc/lsb-release -o -f /etc/debian_version -o -f /etc/debian_release ] ; then
-            if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
-                installedStatus=1
-                installedWith="init.d"
-            elif [ -n "$USE_SYSTEMD" -a -f "${SYSTEMD_SERVICE_FILE}" ] ; then
-                installedStatus=2
-                installedWith="systemd"
-            elif [ -f "/etc/init/${APP_NAME}.conf" ] ; then
-                installedStatus=3
-                installedWith="upstart"
-            else
-                installedStatus=0
+            if [ "X$1" != "Xstrict" -o -n "$USE_SYSTEMD" ] ; then
+                if [ -f "${SYSTEMD_SERVICE_FILE}" ] ; then
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_SYSTEMD`
+                    installedWith="${installedWith}${installedWith:+, }systemd"
+                fi
+            fi
+        elif [ -f /etc/lsb-release -o -f /etc/debian_version -o -f /etc/debian_release ] && [ "X`command -v update-rc.d`" != "X" ] ; then
+            if [ "X$1" != "Xstrict" -o \( -z "$USE_SYSTEMD" -a -z "$USE_UPSTART" \) ] ; then
+                if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
+                    installedStatus=$SERVICE_INSTALLED_DEFAULT
+                    installedWith="init.d"
+                fi
+            fi
+            if [ "X$1" != "Xstrict" -o -n "$USE_SYSTEMD" ] ; then
+                if [ -f "${SYSTEMD_SERVICE_FILE}" ] ; then
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_SYSTEMD`
+                    installedWith="${installedWith}${installedWith:+, }systemd"
+                fi
+            fi
+            if [ "X$1" != "Xstrict" -o -n "$USE_UPSTART" ] ; then
+                if [ -f "/etc/init/${APP_NAME}.conf" ] ; then
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_UPSTART`
+                    installedWith="${installedWith}${installedWith:+, }upstart"
+                fi
             fi
         else
             if [ -f "/etc/init.d/$APP_NAME" -o -L "/etc/init.d/$APP_NAME" ] ; then
-                installedStatus=1
-            else
-                installedStatus=0
+                installedStatus=$SERVICE_INSTALLED_DEFAULT
             fi
         fi
     elif [ "$DIST_OS" = "hpux" ] ; then
         if [ -f "/sbin/init.d/$APP_NAME" -o -L "/sbin/init.d/$APP_NAME" ] ; then
-            installedStatus=1
-        else
-            installedStatus=0
+            installedStatus=$SERVICE_INSTALLED_DEFAULT
         fi
     elif [ "$DIST_OS" = "aix" ] ; then
-        if [ -f "/etc/rc.d/init.d/$APP_NAME" -o -L "/etc/rc.d/init.d/$APP_NAME" ] ; then
-            installedStatus=1
-            installedWith="init.d"
-        else
+        if [ "X$1" != "Xstrict" -o -z "$USE_SRC" ] ; then
+            if [ -f "/etc/rc.d/init.d/$APP_NAME" -o -L "/etc/rc.d/init.d/$APP_NAME" ] ; then
+                installedStatus=$SERVICE_INSTALLED_DEFAULT
+                installedWith="init.d"
+            fi
+        fi
+        if [ "X$1" != "Xstrict" -o -n "$USE_SRC" ] ; then
             validateAppNameLength
             if [ "$IS_ROOT" = "true" ] ; then
                 # Check both lssrc & lsitab to make sure the installation is complete. lsitab requires root privileges.
                 # We will go through this case before installing or removing a service, so we can redo a clean installation
                 # or a clean removal if installedStatus=5
                 if [ -n "`/usr/sbin/lsitab $APP_NAME`" -a -n "`/usr/bin/lssrc -S -s $APP_NAME`" ] ; then
-                    installedStatus=4
-                    installedWith="SRC"
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_SRC`
+                    installedWith="${installedWith}${installedWith:+, }SRC"
                 elif [ -n "`/usr/sbin/lsitab $APP_NAME`" -o -n "`/usr/bin/lssrc -S -s $APP_NAME`" ] ; then
-                    installedStatus=5
-                    installedWith="SRC"
-                else
-                    installedStatus=0
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_SRC_PARTIAL`
+                    installedWith="${installedWith}${installedWith:+, }SRC"
                 fi
             else
                 # Using lssrc is enough to test normal installations and doesn't require root privileges
                 if [ -n "`/usr/bin/lssrc -S -s $APP_NAME`" ] ; then
-                    installedStatus=4
-                    installedWith="SRC"
-                else
-                    installedStatus=0
+                    installedStatus=`expr $installedStatus + $SERVICE_INSTALLED_SRC`
+                    installedWith="${installedWith}${installedWith:+, }SRC"
                 fi
             fi
         fi
     elif [ "$DIST_OS" = "freebsd" ] ; then
         if [ -f "/etc/rc.d/$APP_NAME" -o -L "/etc/rc.d/$APP_NAME" ] ; then
-            installedStatus=1
-        else
-            installedStatus=0
+            installedStatus=$SERVICE_INSTALLED_DEFAULT
         fi
     elif [ "$DIST_OS" = "macosx" ] ; then
         if [ -f "/Library/LaunchDaemons/${APP_PLIST}" -o -L "/Library/LaunchDaemons/${APP_PLIST}" ] ; then
-            installedStatus=1
-        else
-            installedStatus=0
+            installedStatus=$SERVICE_INSTALLED_DEFAULT
         fi
     elif [ "$DIST_OS" = "zos" ] ; then
         if [ -f /etc/rc.bak ] ; then
-            installedStatus=1
-        else
-            installedStatus=0
+            installedStatus=$SERVICE_INSTALLED_DEFAULT
         fi
     fi
 }
@@ -1915,7 +2071,7 @@ status() {
     getpid
     if [ "X$pid" = "X" ]
     then
-        if [ $installedStatus -eq 0 ] ; then
+        if [ $installedStatus -eq $SERVICE_NOT_INSTALLED ] ; then
             eval echo `gettext '$APP_LONG_NAME \(not installed\) is not running.'`
         elif [ "X$installedWith" = "X" ] ; then
             eval echo `gettext '$APP_LONG_NAME \(installed\) is not running.'`
@@ -1926,7 +2082,7 @@ status() {
     else
         if [ "X$DETAIL_STATUS" = "X" ]
         then
-            if [ $installedStatus -eq 0 ] ; then
+            if [ $installedStatus -eq $SERVICE_NOT_INSTALLED ] ; then
                 eval echo `gettext '$APP_LONG_NAME \(not installed\) is running: PID:$pid'`
             elif [ "X$installedWith" = "X" ] ; then
                 eval echo `gettext '$APP_LONG_NAME \(installed\) is running: PID:$pid'`
@@ -1935,7 +2091,7 @@ status() {
             fi
         else
             getstatus
-            if [ $installedStatus -eq 0 ] ; then
+            if [ $installedStatus -eq $SERVICE_NOT_INSTALLED ] ; then
                 eval echo `gettext '$APP_LONG_NAME \(not installed\) is running: PID:$pid, Wrapper:$STATUS, Java:$JAVASTATUS'`
             elif [ "X$installedWith" = "X" ] ; then
                 eval echo `gettext '$APP_LONG_NAME \(installed\) is running: PID:$pid, Wrapper:$STATUS, Java:$JAVASTATUS'`
@@ -1958,12 +2114,12 @@ validateAppNameLength() {
 
 installdaemon() {
     mustBeRootOrExit
-
+    
     checkInstalled
     APP_NAME_LOWER=`echo "$APP_NAME" | $TR_BIN "[A-Z]" "[a-z]"`
     if [ "$DIST_OS" = "solaris" ] ; then
         eval echo `gettext 'Detected Solaris:'`
-        if [ $installedStatus -gt 0 ] ; then
+        if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
             eval echo `gettext ' The $APP_LONG_NAME daemon is already installed.'`
         else
             eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
@@ -1978,14 +2134,14 @@ installdaemon() {
     elif [ "$DIST_OS" = "linux" ] ; then
         if [ -f /etc/redhat-release -o -f /etc/redhat_version -o -f /etc/fedora-release ] ; then
             eval echo `gettext 'Detected RHEL or Fedora:'`
-            if [ $installedStatus -gt 0 ] ; then
+            if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
                 eval echo `gettext ' The $APP_LONG_NAME daemon is already installed with $installedWith.'`
             elif [ -n "$USE_SYSTEMD" ] ; then
-                    systemdInstall
+                systemdInstall
             else
                 if [ -n "$USE_UPSTART" ] ; then
                     upstartInstall
-                else
+                else 
                     eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
                     ln -s "$REALPATH" "/etc/init.d/$APP_NAME"
                     /sbin/chkconfig --add "$APP_NAME"
@@ -1994,25 +2150,25 @@ installdaemon() {
             fi
         elif [ -f /etc/SuSE-release ] ; then
             eval echo `gettext 'Detected SuSE or SLES:'`
-            if [ $installedStatus -gt 0 ] ; then
+            if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
                 eval echo `gettext ' The $APP_LONG_NAME daemon is already installed with $installedWith.'`
             elif [ -n "$USE_SYSTEMD" ] ; then
-                    systemdInstall
+                systemdInstall
             else
                 eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
                 ln -s "$REALPATH" "/etc/init.d/$APP_NAME"
                 insserv "/etc/init.d/$APP_NAME"
             fi
-        elif [ -f /etc/lsb-release -o -f /etc/debian_version -o -f /etc/debian_release ] ; then
+        elif [ -f /etc/lsb-release -o -f /etc/debian_version -o -f /etc/debian_release ] && [ "X`command -v update-rc.d`" != "X" ] ; then
             eval echo `gettext 'Detected Ubuntu or Debian:'`
-            if [ $installedStatus -gt 0 ] ; then
+            if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
                 eval echo `gettext ' The $APP_LONG_NAME daemon is already installed with $installedWith.'`
             else
                 if [ -n "$USE_SYSTEMD" ] ; then
                     systemdInstall
                 elif [ -n "$USE_UPSTART" ] ; then
                     upstartInstall
-                else
+                else 
                     eval echo `gettext ' Installing the $APP_LONG_NAME daemon using init.d...'`
                     ln -s "$REALPATH" "/etc/init.d/$APP_NAME"
                     update-rc.d "$APP_NAME" defaults
@@ -2020,7 +2176,7 @@ installdaemon() {
             fi
         else
             eval echo `gettext 'Detected Linux:'`
-            if [ $installedStatus -gt 0 ] ; then
+            if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
                 eval echo `gettext ' The $APP_LONG_NAME daemon is already installed.'`
             else
                 eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
@@ -2037,7 +2193,7 @@ installdaemon() {
         fi
     elif [ "$DIST_OS" = "hpux" ] ; then
         eval echo `gettext 'Detected HP-UX:'`
-        if [ $installedStatus -gt 0 ] ; then
+        if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
             eval echo `gettext ' The $APP_LONG_NAME daemon is already installed.'`
         else
             eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
@@ -2051,20 +2207,19 @@ installdaemon() {
         fi
     elif [ "$DIST_OS" = "aix" ] ; then
         eval echo `gettext 'Detected AIX:'`
-
-        if [ $installedStatus -eq 1 -o $installedStatus -eq 4 ] ; then
+        if [ $installedStatus -ne $SERVICE_NOT_INSTALLED -a $installedStatus -ne $SERVICE_INSTALLED_SRC_PARTIAL ] ; then
             eval echo `gettext ' The $APP_LONG_NAME daemon is already installed with $installedWith.'`
         else
             eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
-            if [ -n "`/usr/sbin/lsitab install_assist`" ] ; then
+            if [ -n "`/usr/sbin/lsitab install_assist`" ] ; then 
                 eval echo `gettext ' The task /usr/sbin/install_assist was found in the inittab, this might cause problems for all subsequent tasks to launch as this process is known to block the init task. Please make sure this task is not needed anymore and remove/deactivate it.'`
             fi
-
+            
             for i in `ls "/etc/rc.d/rc2.d/K"??"$APP_NAME_LOWER" "/etc/rc.d/rc2.d/S"??"$APP_NAME_LOWER" 2>/dev/null` ; do
                 eval echo `gettext ' Removing unexpected file before proceeding: $i'`
                 rm -f $i
             done
-
+            
             if [ -n "$USE_SRC" ] ; then
                 srcInstall
             else
@@ -2076,7 +2231,7 @@ installdaemon() {
         fi
     elif [ "$DIST_OS" = "freebsd" ] ; then
         eval echo `gettext 'Detected FreeBSD:'`
-        if [ $installedStatus -gt 0 ] ; then
+        if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
             eval echo `gettext ' The $APP_LONG_NAME daemon is already installed.'`
         else
             eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
@@ -2113,7 +2268,7 @@ installdaemon() {
         fi
     elif [ "$DIST_OS" = "macosx" ] ; then
         eval echo `gettext 'Detected Mac OSX:'`
-        if [ $installedStatus -gt 0 ] ; then
+        if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
             eval echo `gettext ' The $APP_LONG_NAME daemon is already installed.'`
         else
             eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
@@ -2147,7 +2302,7 @@ installdaemon() {
         fi
     elif [ "$DIST_OS" = "zos" ] ; then
         eval echo `gettext 'Detected z/OS:'`
-        if [ $installedStatus -gt 0 ] ; then
+        if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
             eval echo `gettext ' The $APP_LONG_NAME daemon is already installed.'`
         else
             eval echo `gettext ' Installing the $APP_LONG_NAME daemon...'`
@@ -2160,19 +2315,19 @@ installdaemon() {
         eval echo `gettext 'Install not currently supported for $DIST_OS'`
         exit 1
     fi
-
+    
     # Exit with 1 if the daemon was already installed when calling installdaemon().
     #  The test below requires $installedStatus to be unchanged since the call to
     #  checkInstalled() at the beginning of the function. If the script was launched
     #  with 'installstart' we want to start normally, so don't exit here.
-    if [ $installedStatus -gt 0 -a "$COMMAND" != 'installstart' ] ; then
+    if [ $installedStatus -ne $SERVICE_NOT_INSTALLED -a "$COMMAND" != 'installstart' ] ; then
         exit 1
     fi
-
+    
     # Check again the installation status. The script should exit with 1 if the service
     #  could not be installed (even if it was launched with 'installstart').
     checkInstalled
-    if [ $installedStatus -eq 0 ] ; then
+    if [ $installedStatus -eq $SERVICE_NOT_INSTALLED ] ; then
         eval echo `gettext 'Service not installed.'`
         exit 1
     fi
@@ -2191,16 +2346,16 @@ startdaemon() {
         if [ -n "$SYSD" ] ; then
             shift
         fi
-
+        
         checkUser touchlock "$@"
         if [ ! -n "$FIXED_COMMAND" ] ; then
             shift
         fi
-
+        
         if [ "$SERVICE_MANAGEMENT_TOOL" != "auto" -a "$SERVICE_MANAGEMENT_TOOL" != "initd" ] ; then
             eval echo `gettext "Starting without using the configured service management tool \'$SERVICE_MANAGEMENT_TOOL\' because the service $APP_NAME is not installed."`
         fi
-
+        
         start "$@"
     fi
 }
@@ -2231,14 +2386,23 @@ restartdaemon() {
     fi
 }
 
+isBitSet() {
+    if [ `expr \( $1 / $2 \) % 2` -eq 1 ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
 removedaemon() {
     mustBeRootOrExit
-
+    
     checkInstalled
     APP_NAME_LOWER=`echo "$APP_NAME" | $TR_BIN "[A-Z]" "[a-z]"`
     if [ "$DIST_OS" = "solaris" ] ; then
         eval echo `gettext 'Detected Solaris:'`
-        if [ $installedStatus -eq 1 ] ; then
+        isBitSet $installedStatus $SERVICE_INSTALLED_DEFAULT
+        if [ $? -eq 1 ] ; then
             stopit "0"
             eval echo `gettext ' Removing $APP_LONG_NAME daemon...'`
             for i in `ls "/etc/rc3.d/K"??"$APP_NAME_LOWER" "/etc/rc3.d/S"??"$APP_NAME_LOWER" "/etc/init.d/$APP_NAME" 2>/dev/null` ; do
@@ -2251,68 +2415,59 @@ removedaemon() {
     elif [ "$DIST_OS" = "linux" ] ; then
         if [ -f /etc/redhat-release -o -f /etc/redhat_version -o -f /etc/fedora-release ] ; then
             eval echo `gettext 'Detected RHEL or Fedora:'`
-            if [ $installedStatus -eq 1 ] ; then
+            isBitSet $installedStatus $SERVICE_INSTALLED_DEFAULT
+            if [ $? -eq 1 ] ; then
                 stopit "0"
                 eval echo `gettext ' Removing $APP_LONG_NAME daemon...'`
                 /sbin/chkconfig "$APP_NAME" off
                 /sbin/chkconfig --del "$APP_NAME"
                 rm -f "/etc/init.d/$APP_NAME"
-            elif [ $installedStatus -eq 2 ] ; then
-                systemdRemove
-            elif [ $installedStatus -eq 3 ] ; then
-                stopit "0"
-                eval echo `gettext ' Removing $APP_LONG_NAME daemon from upstart...'`
-                rm "/etc/init/${APP_NAME}.conf"
-            else
-                eval echo `gettext ' The $APP_LONG_NAME daemon is not currently installed.'`
-                exit 1
             fi
         elif [ -f /etc/SuSE-release ] ; then
             eval echo `gettext 'Detected SuSE or SLES:'`
-            if [ $installedStatus -eq 1 ] ; then
+            isBitSet $installedStatus $SERVICE_INSTALLED_DEFAULT
+            if [ $? -eq 1 ] ; then
                 stopit "0"
-                eval echo `gettext ' Removing $APP_LONG_NAME daemon...'`
+                eval echo `gettext ' Removing $APP_LONG_NAME daemon from init.d...'`
                 insserv -r "/etc/init.d/$APP_NAME"
                 rm -f "/etc/init.d/$APP_NAME"
-            elif [ $installedStatus -eq 2 ] ; then
-                systemdRemove
-            else
-                eval echo `gettext ' The $APP_LONG_NAME daemon is not currently installed.'`
-                exit 1
             fi
-        elif [ -f /etc/lsb-release -o -f /etc/debian_version -o -f /etc/debian_release ] ; then
+        elif [ -f /etc/lsb-release -o -f /etc/debian_version -o -f /etc/debian_release ] && [ "X`command -v update-rc.d`" != "X" ] ; then
             eval echo `gettext 'Detected Ubuntu or Debian:'`
-            if [ $installedStatus -eq 1 ] ; then
+            isBitSet $installedStatus $SERVICE_INSTALLED_DEFAULT
+            if [ $? -eq 1 ] ; then
                 stopit "0"
                 eval echo `gettext ' Removing $APP_LONG_NAME daemon from init.d...'`
                 update-rc.d -f "$APP_NAME" remove
                 rm -f "/etc/init.d/$APP_NAME"
-            elif [ $installedStatus -eq 2 ] ; then
-                systemdRemove
-            elif [ $installedStatus -eq 3 ] ; then
-                stopit "0"
-                eval echo `gettext ' Removing $APP_LONG_NAME daemon from upstart...'`
-                rm "/etc/init/${APP_NAME}.conf"
-            else
-                eval echo `gettext ' The $APP_LONG_NAME daemon is not currently installed.'`
-                exit 1
             fi
         else
             eval echo `gettext 'Detected Linux:'`
-            if [ $installedStatus -eq 1 ] ; then
+            isBitSet $installedStatus $SERVICE_INSTALLED_DEFAULT
+            if [ $? -eq 1 ] ; then
                 stopit "0"
                 eval echo `gettext ' Removing $APP_LONG_NAME daemon...'`
                 for i in `ls "/etc/rc3.d/K"??"$APP_NAME_LOWER" "/etc/rc5.d/K"??"$APP_NAME_LOWER" "/etc/rc3.d/S"??"$APP_NAME_LOWER" "/etc/rc5.d/S"??"$APP_NAME_LOWER" "/etc/init.d/$APP_NAME" 2>/dev/null` ; do
                     rm -f $i
                 done
-            else
-                eval echo `gettext ' The $APP_LONG_NAME daemon is not currently installed.'`
-                exit 1
             fi
+        fi
+        isBitSet $installedStatus $SERVICE_INSTALLED_SYSTEMD
+        if [ $? -eq 1 ] ; then
+            systemdRemove
+        fi
+        isBitSet $installedStatus $SERVICE_INSTALLED_UPSTART
+        if [ $? -eq 1 ] ; then
+            upstartRemove
+        fi
+        if [ $installedStatus -eq $SERVICE_NOT_INSTALLED ] ; then
+            eval echo `gettext ' The $APP_LONG_NAME daemon is not currently installed.'`
+            exit 1
         fi
     elif [ "$DIST_OS" = "hpux" ] ; then
         eval echo `gettext 'Detected HP-UX:'`
-        if [ $installedStatus -eq 1 ] ; then
+        isBitSet $installedStatus $SERVICE_INSTALLED_DEFAULT
+        if [ $? -eq 1 ] ; then
             stopit "0"
             eval echo `gettext ' Removing $APP_LONG_NAME daemon...'`
             for i in `ls "/sbin/rc3.d/K"??"$APP_NAME_LOWER" "/sbin/rc3.d/S"??"$APP_NAME_LOWER" "/sbin/init.d/$APP_NAME" 2>/dev/null` ; do
@@ -2324,19 +2479,25 @@ removedaemon() {
         fi
     elif [ "$DIST_OS" = "aix" ] ; then
         eval echo `gettext 'Detected AIX:'`
-        if [ $installedStatus -gt 0 ] ; then
+        if [ $installedStatus -ne $SERVICE_NOT_INSTALLED ] ; then
             stopit "0"
             eval echo `gettext ' Removing $APP_LONG_NAME daemon...'`
-            if [ $installedStatus -eq 1 ] ; then
+            isBitSet $installedStatus $SERVICE_INSTALLED_DEFAULT
+            if [ $? -eq 1 ] ; then
                 for i in `ls "/etc/rc.d/rc2.d/K"??"$APP_NAME_LOWER" "/etc/rc.d/rc2.d/S"??"$APP_NAME_LOWER" "/etc/rc.d/init.d/$APP_NAME" 2>/dev/null` ; do
                     rm -f $i
                 done
-            else
+            fi
+            isBitSet $installedStatus $SERVICE_INSTALLED_SRC
+            isSrcSet=$?
+            isBitSet $installedStatus $SERVICE_INSTALLED_SRC_PARTIAL
+            isSrcPartialSet=$?
+            if [ $isSrcSet -eq 1 -o $isSrcPartialSet -eq 1 ] ; then
                 validateAppNameLength
                 /usr/sbin/rmitab $APP_NAME
                 /usr/bin/rmssys -s $APP_NAME
             fi
-        else
+        else 
             eval echo `gettext ' The $APP_LONG_NAME daemon is not currently installed.'`
             exit 1
         fi
@@ -2463,32 +2624,30 @@ showUsage() {
         eval echo `gettext 'Unexpected command: $1'`
         echo "";
     fi
-
-    if [ ! -n "$PASS_THROUGH" ]
-    then
-        PASS_THROUGH=false
+    
+    if [ "X${PASS_THROUGH}" = "Xapp_args" ] ; then
+        ARGS=" {JavaAppArgs}"
+    elif [ "X${PASS_THROUGH}" = "Xboth" ] ; then
+        ARGS=" {WrapperProperties} [-- {JavaAppArgs}]"
+    else
+        ARGS=""
     fi
 
     eval MSG=`gettext 'Usage: '`
     if [ -n "$FIXED_COMMAND" ] ; then
-        if [ $PASS_THROUGH = true ] ; then
-            echo "${MSG} $0 {JavaAppArgs}"
-        else
-            echo "${MSG} $0"
-        fi
+        echo "${MSG} $0${ARGS}"
     else
-        if [ -n "$PAUSABLE" ] ; then
-            if [ $PASS_THROUGH = true ] ; then
-                echo "${MSG} $0 [ console {JavaAppArgs} | start {JavaAppArgs} | stop | restart {JavaAppArgs} | condrestart {JavaAppArgs} | pause | resume | status | install | installstart | remove | dump ]"
-            else
-                echo "${MSG} $0 [ console | start | stop | restart | condrestart | pause | resume | status | install | installstart | remove | dump ]"
-            fi
+        checkInstalled "strict"
+        if [ $installedStatus -eq $SERVICE_NOT_INSTALLED ] ; then
+            # not installed, allow arguments to be passed through
+            ARGS_START=$ARGS
         else
-            if [ $PASS_THROUGH = true ] ; then
-                echo "${MSG} $0 [ console {JavaAppArgs} | start {JavaAppArgs} | stop | restart {JavaAppArgs} | condrestart {JavaAppArgs} | status | install | installstart | remove | dump ]"
-            else
-                echo "${MSG} $0 [ console | start | stop | restart | condrestart | status | install | installstart | remove | dump ]"
-            fi
+            ARGS_START=""
+        fi
+        if [ -n "$PAUSABLE" ] ; then
+            echo "${MSG} $0 [ console${ARGS} | start${ARGS_START} | stop | restart${ARGS_START} | condrestart${ARGS_START} | pause | resume | status | install | installstart | remove | dump ]"
+        else
+            echo "${MSG} $0 [ console${ARGS} | start${ARGS_START} | stop | restart${ARGS_START} | condrestart${ARGS_START} | status | install | installstart | remove | dump ]"
         fi
     fi
 
@@ -2513,13 +2672,62 @@ showUsage() {
             echo "`gettext '  dump         Request a Java thread dump if running.'`"
             echo "";
         fi
-        if [ $PASS_THROUGH = true ] ; then
-            echo "`gettext 'JavaAppArgs: Zero or more arguments which will be passed to the Java application.'`"
+        if [ "X${PASS_THROUGH}" = "Xapp_args" -o "X${PASS_THROUGH}" = "Xboth" ] ; then
+            if [ "X${PASS_THROUGH}" = "Xboth" ] ; then
+                echo "WrapperProperties:"
+                echo "`gettext '  Optional configuration properties which will be passed to the Wrapper.'`"
+                echo "";
+            fi
+            echo "JavaAppArgs:"
+            echo "`gettext '  Optional arguments which will be passed to the Java application.'`"
             echo "";
         fi
     fi
 
     exit 1
+}
+
+# Check if arguments are correct. This needs to be done after knowing the
+#  command, the application name and OS (to check the installation status).
+# NOTE: When the validity of the arguments depends on the daemon installation,
+#       make sure to call setServiceManagementTool() before this function.
+#
+# $1 0: no parameter allowed
+#   -1: parameter allowed if not installed
+#    1: parameter allowed
+checkArguments() {
+    # If this is a systemd call (from the systemd service file), we don't want
+    #  to check arguments ('sysd' itself should not be blocking and the user
+    #  may also have edited the file and added additional args in it).
+    if [ -n "$SYSD" ] ; then
+        return
+    fi
+    
+    if [ -n "$FIRST_ARG" ] ; then
+        if [ $1 = -1 ] ; then
+            checkInstalled "strict"
+            if [ $installedStatus -eq $SERVICE_NOT_INSTALLED ] ; then
+                PASS_THROUGH_ALLOWED=true
+            fi
+        elif [ $1 = 1 ] ; then
+            PASS_THROUGH_ALLOWED=true
+        fi
+
+        if [ "X${PASS_THROUGH_ALLOWED}" != "Xtrue" ] ; then
+            eval echo `gettext 'Additional arguments are not allowed with the ${COMMAND} command.'`
+            
+            if [ -n "$FIXED_COMMAND" ] ; then
+                # The command can't be used with PASS_THROUGH, so disable it to show appropriate usage.
+                PASS_THROUGH=false
+            fi
+            showUsage
+            exit 2 # LSB - invalid or excess argument(s)
+        elif [ "X${PASS_THROUGH}" = "Xfalse" ] ; then
+            eval echo `gettext 'Additional arguments are not allowed when PASS_THROUGH is set to false.'`
+            showUsage
+            exit 2 # LSB - invalid or excess argument(s)
+        fi
+    fi
 }
 
 # Resolve the service management tool for linux and aix.
@@ -2528,7 +2736,7 @@ setServiceManagementTool() {
         # Set the default value to auto.
         SERVICE_MANAGEMENT_TOOL=auto
     fi
-
+    
     if [ "$DIST_OS" = "linux" ] ; then
         setServiceManagementToolLinux
     elif [ "$DIST_OS" = "aix" ] ; then
@@ -2540,7 +2748,7 @@ setServiceManagementTool() {
         fi
         return
     fi
-
+    
     if [ $? = 1 ] ; then
         eval echo `gettext 'Service management tool value is invalid: $SERVICE_MANAGEMENT_TOOL.'`
         exit 1
@@ -2555,7 +2763,7 @@ setServiceManagementToolLinux() {
                 USE_SYSTEMD=1
                 return
             fi
-
+            
             upstartDetection
             if [ $? -eq 0 ] ; then
                 USE_UPSTART=1
@@ -2594,22 +2802,25 @@ setServiceManagementToolAix() {
 }
 
 docommand() {
-
+  
     case "$COMMAND" in
         'console')
+            checkArguments 1
             checkUser touchlock "$@"
             if [ ! -n "$FIXED_COMMAND" ] ; then
                 shift
             fi
             console "$@"
             ;;
-
+    
         'start')
             setServiceManagementTool
+            checkArguments -1
             startdaemon "$@"
             ;;
-
+    
         'stop')
+            checkArguments 0
             setServiceManagementTool
             if [ "$DIST_OS" = "macosx" -a -f "/Library/LaunchDaemons/${APP_PLIST}" ] ; then
                 macosxStop
@@ -2624,18 +2835,21 @@ docommand() {
                 stopit "0"
             fi
             ;;
-
+    
         'restart')
             setServiceManagementTool
+            checkArguments -1
             restartdaemon "0" "$@"
             ;;
-
+    
         'condrestart')
             setServiceManagementTool
+            checkArguments -1
             restartdaemon "1" "$@"
             ;;
-
+    
         'pause')
+            checkArguments 0
             setServiceManagementTool
             if [ -n "$PAUSABLE" ]
             then
@@ -2644,8 +2858,9 @@ docommand() {
                 showUsage "$COMMAND"
             fi
             ;;
-
+    
         'resume')
+            checkArguments 0
             setServiceManagementTool
             if [ -n "$PAUSABLE" ]
             then
@@ -2654,45 +2869,50 @@ docommand() {
                 showUsage "$COMMAND"
             fi
             ;;
-
+    
         'status')
+            checkArguments 0
             setServiceManagementTool
             status
             ;;
-
+    
         'install')
+            checkArguments 0
             setServiceManagementTool
             installdaemon "$@"
             ;;
-
+    
         'installstart')
+            checkArguments 0
             setServiceManagementTool
             installdaemon "$@"
             startdaemon "$@"
             ;;
-
+    
         'remove')
+            checkArguments 0
             setServiceManagementTool
             removedaemon
             ;;
-
+    
         'dump')
+            checkArguments 0
             checkUser "" "$COMMAND"
             dump
             ;;
-
+    
         'start_msg')
             # Internal command called by launchd on HP-UX.
             checkUser "" "$COMMAND"
             startmsg
             ;;
-
+    
         'stop_msg')
             # Internal command called by launchd on HP-UX.
             checkUser "" "$COMMAND"
             stopmsg
             ;;
-
+    
         'launchdinternal' | 'upstartinternal')
             if [ ! "$DIST_OS" = "macosx" -o ! -f "/Library/LaunchDaemons/${APP_PLIST}" ] ; then
                 checkUser touchlock "$@"
@@ -2704,7 +2924,7 @@ docommand() {
             fi
             launchinternal "$@"
             ;;
-
+    
         *)
             showUsage "$COMMAND"
             ;;

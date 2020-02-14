@@ -1,23 +1,30 @@
-com.snc:mid-dist-universal:pom:14.1.2.3
-+- com.snc:mid:jar:14.1.2.3:compile
+com.snc:mid-dist-universal:pom:17.z.1.10
++- com.snc:mid:jar:17.z.1.10:compile
+|  +- com.snc.glide.amb:amb-client:jar:0.8.4:compile
+|  |  \- org.cometd.java:cometd-java-client:jar:3.1.4-sn-0.13:compile
+|  |     +- org.cometd.java:bayeux-api:jar:3.1.4-sn-0.13:compile
+|  |     +- org.cometd.java:cometd-java-common:jar:3.1.4-sn-0.13:compile
+|  |     |  \- org.eclipse.jetty:jetty-util-ajax:jar:9.4.11.v20180605:compile
+|  |     +- org.eclipse.jetty:jetty-util:jar:9.4.11.v20180605:compile
+|  |     \- org.eclipse.jetty:jetty-client:jar:9.4.11.v20180605:compile
 |  +- com.github.peter-gergely-horvath:windpapi4j:jar:1.0:compile
 |  |  \- net.java.dev.jna:jna:jar:4.2.1:compile
 |  +- com.google.inject:guice:jar:3.0:compile
 |  |  +- javax.inject:javax.inject:jar:1:compile
 |  |  \- aopalliance:aopalliance:jar:1.0:compile
-|  +- com.snc:cimiql:jar:14.1.2.3:compile
+|  +- com.snc:cimiql:jar:17.z.1.10:compile
 |  +- org.fusesource:sigar:jar:1.6.4:compile
 |  |  \- log4j:log4j:jar:1.2.17:compile
 |  +- commons-io:commons-io:jar:2.5:compile
 |  +- commons-net:commons-net:jar:1.1.0:compile
 |  |  \- oro:oro:jar:2.0.7:compile
 |  +- com.snc:joesnmp:jar:0.3.2-snc3-6.0.0:compile
-|  +- com.snc:java-service-wrapper:jar:3.5.34:compile
+|  +- com.snc:java-service-wrapper:jar:3.5.40:compile
 |  +- commons-lang:commons-lang:jar:2.6-snc4:compile
 |  +- org.apache.commons:commons-exec:jar:1.3:compile
 |  +- commons-httpclient:commons-httpclient:jar:3.1:compile
-|  +- com.servicenow:slp:jar:6.0.0:compile
-|  +- com.servicenow:ssh:jar:14.1.2.3:compile
+|  +- com.servicenow:slp:jar:1.0.0.RC5-snc6.1.0:compile
+|  +- com.servicenow:ssh:jar:17.z.1.10:compile
 |  |  +- commons-cli:commons-cli:jar:1.2:compile
 |  |  \- org.bouncycastle:bcprov-jdk15on:jar:1.50:compile
 |  +- com.snc:j2ssh:jar:core:0.2.7-snc-15.1:compile
@@ -27,13 +34,13 @@ com.snc:mid-dist-universal:pom:14.1.2.3
 |  +- com.snc:j2ssh:jar:daemon:0.2.7-snc-15.1:compile
 |  +- com.snc:j2ssh:jar:common:0.2.7-snc-15.1:compile
 |  +- commons-collections:commons-collections:jar:3.2.2:compile
-|  +- com.snc.dist.upgrade:dist-upgrade-runner:jar:15.4:compile
+|  +- com.snc.dist.upgrade:dist-upgrade-runner:jar:15.5.0:compile
 |  +- net.percederberg:grammatica:jar:1.5:compile
 |  +- net.percederberg:mibble:jar:parser:2.9.3:compile
 |  +- net.percederberg:mibble:jar:mibs:2.9.3:compile
 |  +- com.eaio.uuid:uuid:jar:3.2:compile
 |  +- com.snc:jslp:jar:1.0.0.RC5:compile
-|  +- com.snc:mariadb-java-client:jar:1.1.9-snc5:compile
+|  +- com.snc:mariadb-java-client:jar:2.3.0-snc3:compile
 |  +- com.oracle:ojdbc6:jar:11.2.0.3:compile
 |  +- com.snc:sql-server-jdbc:jar:4.0:compile
 |  +- dom4j:dom4j:jar:1.6.1:compile
@@ -43,21 +50,20 @@ com.snc:mid-dist-universal:pom:14.1.2.3
 |  +- com.snc:jmxremote:jar:1.0.1_04:compile
 |  +- com.snc:jmxremote_optional:jar:1.0.1_04:compile
 |  +- com.snc:jmxri:jar:1.2.1:compile
-|  +- com.snc:jmxtools:jar:1.2.1:compile
 |  +- com.snc:rmissl:jar:1.0.1_04:compile
 |  +- org.snmp4j:snmp4j:jar:2.3.4:compile
 |  +- org.snmp4j.smi:snmp4j-smi-pro:jar:1.7.0:compile
-|  +- com.snc:commons-glide:jar:14.1.2.3:compile
+|  +- com.snc:commons-glide:jar:17.z.1.10:compile
 |  |  +- com.carrotsearch:java-sizeof:jar:0.0.3:compile
-|  |  +- com.snc:snxpath:jar:0.0.19:compile
+|  |  +- com.snc:snxpath:jar:0.0.20:compile
 |  |  |  +- org.glassfish:javax.json:jar:1.0.4:compile
 |  |  |  +- org.apache.ws.commons.axiom:axiom-api:jar:1.2.12:compile
 |  |  |  +- org.apache.ws.commons.axiom:axiom-dom:jar:1.2.12:compile
 |  |  |  \- org.apache.ws.commons.axiom:axiom-impl:jar:1.2.12:compile
 |  |  +- org.jsoup:jsoup:jar:1.9.2:compile
 |  |  +- com.glidesoft:dnsjava:jar:2.0.6:compile
-|  |  +- com.snc:rhino-ng:jar:0.0.78:compile
-|  |  +- com.snc:da-core:jar:11.0.0.7:compile
+|  |  +- com.snc:rhino-ng:jar:0.0.81:compile
+|  |  +- com.snc:da-core:jar:11.0.0.16:compile
 |  |  |  +- com.google.inject.extensions:guice-multibindings:jar:3.0:compile
 |  |  |  +- com.google.inject.extensions:guice-assistedinject:jar:3.0:compile
 |  |  |  \- org.hibernate.javax.persistence:hibernate-jpa-2.0-api:jar:1.0.1.Final:compile
@@ -68,183 +74,296 @@ com.snc:mid-dist-universal:pom:14.1.2.3
 |  |  |  \- xom:xom:jar:1.0:compile
 |  |  +- com.glidesoft:tidy:jar:1.0:compile
 |  |  +- com.glidesoft:json:jar:1.0-snc-2.7:compile
-|  |  +- com.glidesoft:xmlsec:jar:1.4.1:compile
-|  |  +- com.glidesoft:stax2-api:jar:3.1.1:compile
-|  |  +- com.glidesoft:wss4j:jar:1.0:compile
-|  |  +- com.sun.mail:javax.mail:jar:1.6.0:compile
+|  |  +- org.apache.santuario:xmlsec:jar:2.1.2:compile
+|  |  +- org.jasypt:jasypt:jar:1.9.2:compile
+|  |  +- org.codehaus.woodstox:stax2-api:jar:3.1.4:compile
+|  |  +- org.apache.wss4j:wss4j-ws-security-dom:jar:2.2.2:compile
+|  |  |  +- org.apache.wss4j:wss4j-ws-security-common:jar:2.2.2:compile
+|  |  |  \- net.sf.ehcache:ehcache:jar:2.10.5:runtime
+|  |  +- com.sun.xml.messaging.saaj:saaj-impl:jar:1.4.0:compile
+|  |  +- javax.xml.soap:javax.xml.soap-api:jar:1.4.0:compile
+|  |  +- org.jvnet.mimepull:mimepull:jar:1.9.7:compile
+|  |  +- org.jvnet.staxex:stax-ex:jar:1.7.8:compile
 |  |  |  \- javax.activation:activation:jar:1.1:compile
-|  |  +- com.glidesoft:woodstox-core-lgpl:jar:4.1.1:compile
+|  |  +- com.sun.mail:javax.mail:jar:1.6.2:compile
+|  |  +- com.fasterxml.woodstox:woodstox-core:jar:5.0.3:compile
 |  |  +- xalan:xalan:jar:2.7.2:compile
 |  |  |  \- xalan:serializer:jar:2.7.2:compile
 |  |  +- xerces:xercesImpl:jar:2.11.0:compile
+|  |  +- com.fasterxml.jackson.core:jackson-core:jar:2.9.5:compile
+|  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.9.5:compile
 |  |  +- org.reflections:reflections:jar:0.9.11-snc3:compile
 |  |  |  \- com.google.code.findbugs:jsr305:jar:3.0.0:compile
 |  |  +- wsdl4j:wsdl4j:jar:1.6.2-fixed:compile
 |  |  +- org.apache.xmlbeans:xmlbeans:jar:2.4.0:compile
+|  |  +- org.apache.httpcomponents:httpasyncclient:jar:4.1.4:compile
+|  |  |  \- org.apache.httpcomponents:httpcore-nio:jar:4.4.10:compile
 |  |  +- com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:jar:r239:compile
 |  |  +- com.snc.temp:ldapbp:jar:0.0.1:compile
 |  |  +- org.bouncycastle:bcpkix-jdk15on:jar:1.50:compile
 |  |  +- org.javassist:javassist:jar:3.19.0-GA:compile
-|  |  \- com.snc:commons-core:jar:14.1.2.3:compile
-|  +- com.snc:commons-process-flow:jar:14.1.2.3:compile
-|  |  \- com.snc:process-flow-core:jar:1.2.26:compile
-|  +- com.snc.glide.amb:amb-client:jar:0.8.0:compile
-|  |  \- org.cometd.java:cometd-java-client:jar:2.9.1-sn-0.6:compile
-|  |     +- org.cometd.java:bayeux-api:jar:2.9.1-sn-0.6:compile
-|  |     +- org.cometd.java:cometd-java-common:jar:2.9.1-sn-0.6:compile
-|  |     +- org.eclipse.jetty:jetty-util:jar:7.6.15.v20140411:compile
-|  |     +- org.eclipse.jetty:jetty-io:jar:7.6.15.v20140411:compile
-|  |     +- org.eclipse.jetty:jetty-http:jar:7.6.15.v20140411:compile
-|  |     \- org.eclipse.jetty:jetty-client:jar:7.6.15.v20140411:compile
+|  |  +- com.jayway.jsonpath:json-path:jar:2.3.0:compile
+|  |  |  \- net.minidev:json-smart:jar:2.3:compile
+|  |  |     \- net.minidev:accessors-smart:jar:1.2:compile
+|  |  +- com.snc:commons-core:jar:17.z.1.10:compile
+|  |  +- com.snc:glide-proxy-commons:jar:17.z.1.10:compile
+|  |  \- org.apache.commons:commons-lang3:jar:3.1:compile
+|  +- com.snc:commons-process-flow:jar:17.z.1.10:compile
+|  |  \- com.snc:process-flow-core:jar:17.z.1.10:compile
+|  +- org.eclipse.jetty:jetty-server:jar:9.4.11.v20180605:compile
+|  |  +- org.eclipse.jetty:jetty-http:jar:9.4.11.v20180605:compile
+|  |  \- org.eclipse.jetty:jetty-io:jar:9.4.11.v20180605:compile
+|  +- org.eclipse.jetty:jetty-security:jar:9.4.11.v20180605:compile
+|  +- org.eclipse.jetty:jetty-servlet:jar:9.4.11.v20180605:compile
 |  +- javax.jms:jms:jar:1.1:compile
 |  +- com.toastcoders:yavijava:jar:6.0.03:compile
 |  |  +- org.projectlombok:lombok:jar:1.16.4:compile
 |  |  \- org.apache.directory.studio:org.dom4j.dom4j:jar:1.6.1:compile
 |  +- org.codehaus.groovy:groovy-all:jar:2.4.8:compile
-|  +- com.snc:commons-core-automation:jar:14.1.2.3:compile
-|  |  +- org.apache.commons:commons-lang3:jar:3.1:compile
-|  |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.9.5:compile
-|  |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.9.5:compile
-|  |  \- com.fasterxml.jackson.core:jackson-core:jar:2.9.5:compile
-|  +- com.snc:sa-commons-mid:jar:14.1.2.3:compile
+|  +- com.snc:commons-core-automation:jar:17.z.1.10:compile
+|  |  \- com.fasterxml.jackson.core:jackson-annotations:jar:2.9.5:compile
+|  +- com.snc:sa-commons-mid:jar:17.z.1.10:compile
 |  |  +- org.codehaus.jackson:jackson-mapper-asl:jar:1.9.3:compile
 |  |  |  \- org.codehaus.jackson:jackson-core-asl:jar:1.9.3:compile
-|  |  +- com.neebula.orchestrator.basic.kb.ndl:ndl-grammar:jar:8.0.0.14:compile
+|  |  +- com.neebula.orchestrator.basic.kb.ndl:ndl-grammar:jar:8.0.0.15:compile
 |  |  |  \- com.neebula.xtext:xtext-deps:jar:3.0:compile
 |  |  |     \- org.antlr:antlr-runtime:jar:3.2:compile
 |  |  |        \- org.antlr:stringtemplate:jar:3.2:compile
 |  |  |           \- antlr:antlr:jar:2.7.7:compile
-|  |  +- org.slf4j:slf4j-api:jar:1.7.5:compile
+|  |  +- org.slf4j:slf4j-api:jar:1.7.25:compile
 |  |  +- org.ini4j:ini4j:jar:0.5.1:compile
 |  |  +- commons-jxpath:commons-jxpath:jar:1.3:compile
 |  |  +- org.apache.commons:commons-math3:jar:3.5:compile
-|  |  +- com.h2database:h2:jar:1.4.192:compile
+|  |  +- com.h2database:h2:jar:1.4.199:compile
 |  |  +- org.jgrapht:jgrapht-core:jar:0.9.1:compile
 |  |  +- com.google.protobuf:protobuf-java:jar:2.6.1:compile
 |  |  +- com.google.code.gson:gson:jar:2.2.4:compile
-|  |  \- com.snc.clotho:itom-oi-models-fitter:jar:1.6.0.13:compile
-|  |     +- com.snc.clotho:clotho-server-api:jar:1.6.0.13:compile
-|  |     |  +- javax.enterprise:cdi-api:jar:1.2:compile
-|  |     |  |  +- javax.el:javax.el-api:jar:3.0.0:compile
-|  |     |  |  \- javax.interceptor:javax.interceptor-api:jar:1.2:compile
-|  |     |  +- com.snc.commons-servlet:stats:jar:1.0.0.34:compile
-|  |     |  +- com.snc.clotho:clotho-api:jar:1.6.0.13:compile
-|  |     |  \- com.snc.clotho:clotho-util:jar:1.6.0.13:compile
-|  |     \- com.snc.clotho:itom-oi-models:jar:1.6.0.13:compile
-|  |        +- com.snc.clotho:itom-oi-metrics:jar:1.6.0.13:compile
-|  |        +- com.github.servicenow.stl4j:stl-decomp-4j:jar:1.0.3:compile
-|  |        \- com.github.vinhkhuc:lbfgs4j:jar:0.2.1:compile
+|  |  \- com.snc.clotho:itom-oi-models:jar:1.9.0.58:compile
+|  |     +- com.snc.clotho:clotho-api:jar:1.9.0.58:compile
+|  |     +- com.snc.clotho:itom-oi-metrics:jar:1.9.0.58:compile
+|  |     +- com.github.servicenow.stl4j:stl-decomp-4j:jar:1.0.3:compile
+|  |     \- com.github.vinhkhuc:lbfgs4j:jar:0.2.1:compile
 |  +- com.maverick:j2ssh-maverick-all:jar:all:1.6.20:compile
-|  +- com.snc:snc-automation-api:jar:1.0.43:compile
+|  +- com.snc:snc-automation-api:jar:1.0.56:compile
 |  +- org.apache.commons:commons-pool2:jar:2.4.1:compile
-|  +- org.apache.camel:camel-core:jar:2.17.1:compile
-|  +- com.amazonaws:aws-java-sdk:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-support:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-simpledb:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-simpleworkflow:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-storagegateway:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-route53:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-s3:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-importexport:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-sts:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-sqs:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-rds:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-redshift:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-elasticbeanstalk:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-glacier:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-datapipeline:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-elasticloadbalancing:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-emr:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-elasticache:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-elastictranscoder:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-ec2:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-dynamodb:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-sns:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cloudtrail:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-logs:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cognitoidentity:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cognitosync:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-directconnect:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cloudformation:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cloudfront:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-kinesis:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-opsworks:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-ses:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-autoscaling:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cloudsearch:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cloudwatchmetrics:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-swf-libraries:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-codedeploy:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-codepipeline:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-kms:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-config:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-lambda:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-ecs:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-cloudhsm:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-ssm:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-workspaces:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-machinelearning:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-directory:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-efs:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-codecommit:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-devicefarm:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-elasticsearch:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-waf:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-marketplacecommerceanalytics:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-inspector:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-iot:jar:1.10.34:compile
-|  |  +- com.amazonaws:aws-java-sdk-api-gateway:jar:1.10.34:compile
-|  |  \- com.amazonaws:aws-java-sdk-core:jar:1.10.34:compile
-|  |     \- joda-time:joda-time:jar:2.9.2:compile
-|  +- org.apache.ignite:ignite-core:jar:2.1.0:compile
-|  |  +- javax.cache:cache-api:jar:1.0.0:compile
+|  +- org.apache.camel:camel-core:jar:2.17.6:compile
+|  +- com.amazonaws:aws-java-sdk:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-dlm:jar:1.11.375:compile
+|  |  |  \- com.amazonaws:jmespath-java:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-macie:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-eks:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mediatailor:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-neptune:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-pi:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-iot1clickprojects:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-iot1clickdevices:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-iotanalytics:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-acmpca:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-secretsmanager:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-fms:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-connect:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-transcribe:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-autoscalingplans:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-workmail:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-servicediscovery:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloud9:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-serverlessapplicationrepository:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-alexaforbusiness:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-resourcegroups:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-comprehend:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-translate:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-sagemaker:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-iotjobsdataplane:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-sagemakerruntime:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-kinesisvideo:jar:1.11.375:compile
+|  |  |  +- io.netty:netty-codec-http:jar:4.1.17.Final:compile
+|  |  |  |  \- io.netty:netty-codec:jar:4.1.17.Final:compile
+|  |  |  \- io.netty:netty-handler:jar:4.1.17.Final:compile
+|  |  |     +- io.netty:netty-buffer:jar:4.1.17.Final:compile
+|  |  |     |  \- io.netty:netty-common:jar:4.1.17.Final:compile
+|  |  |     \- io.netty:netty-transport:jar:4.1.17.Final:compile
+|  |  |        \- io.netty:netty-resolver:jar:4.1.17.Final:compile
+|  |  +- com.amazonaws:aws-java-sdk-appsync:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-guardduty:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mq:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mediaconvert:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mediastore:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mediastoredata:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-medialive:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mediapackage:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-costexplorer:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-pricing:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mobile:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudhsmv2:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-glue:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-migrationhub:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-dax:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-greengrass:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-athena:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-marketplaceentitlement:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-codestar:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-lexmodelbuilding:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-resourcegroupstaggingapi:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-pinpoint:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-xray:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-opsworkscm:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-support:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-simpledb:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-servicecatalog:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-servermigration:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-simpleworkflow:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-storagegateway:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-route53:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-s3:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-importexport:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-sts:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-sqs:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-rds:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-redshift:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-elasticbeanstalk:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-glacier:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-iam:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-datapipeline:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-elasticloadbalancing:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-elasticloadbalancingv2:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-emr:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-elasticache:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-elastictranscoder:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-ec2:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-dynamodb:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-sns:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-budgets:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudtrail:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudwatch:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-logs:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-events:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cognitoidentity:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cognitosync:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-directconnect:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudformation:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudfront:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-clouddirectory:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-kinesis:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-opsworks:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-ses:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-autoscaling:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudsearch:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudwatchmetrics:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-codedeploy:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-codepipeline:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-kms:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-config:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-lambda:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-ecs:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-ecr:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cloudhsm:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-ssm:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-workspaces:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-machinelearning:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-directory:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-efs:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-codecommit:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-devicefarm:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-elasticsearch:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-waf:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-marketplacecommerceanalytics:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-inspector:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-iot:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-api-gateway:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-acm:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-gamelift:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-dms:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-marketplacemeteringservice:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-cognitoidp:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-discovery:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-applicationautoscaling:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-snowball:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-rekognition:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-polly:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-lightsail:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-stepfunctions:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-health:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-costandusagereport:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-codebuild:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-appstream:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-shield:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-batch:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-lex:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-mechanicalturkrequester:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-organizations:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-workdocs:jar:1.11.375:compile
+|  |  +- com.amazonaws:aws-java-sdk-core:jar:1.11.375:compile
+|  |  |  +- software.amazon.ion:ion-java:jar:1.0.2:compile
+|  |  |  \- com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:jar:2.9.5:compile
+|  |  +- com.amazonaws:aws-java-sdk-models:jar:1.11.375:compile
+|  |  \- com.amazonaws:aws-java-sdk-swf-libraries:jar:1.11.22:compile
+|  +- org.apache.ignite:ignite-core:jar:2.5.3:compile
 |  |  +- org.jetbrains:annotations:jar:13.0:compile
 |  |  \- org.gridgain:ignite-shmem:jar:1.0.0:compile
+|  +- javax.cache:cache-api:jar:1.1.0:compile
 |  +- com.netapp:manageontap:jar:5.3:compile
-|  \- org.apache.commons:commons-compress:jar:1.12:runtime
+|  +- org.apache.commons:commons-compress:jar:1.12:runtime
+|  +- org.apache.commons:commons-csv:jar:1.2:compile
+|  \- org.eclipse.jgit:org.eclipse.jgit:jar:4.2.0-snc-3:compile
+|     +- com.jcraft:jsch:jar:0.1.54:compile
+|     \- com.googlecode.javaewah:JavaEWAH:jar:0.7.9:compile
 +- com.snc:wmi:zip:5.0.8:compile
-+- com.snc:mid-installer:jar:14.1.2.3:compile
-|  +- commons-codec:commons-codec:jar:1.9:compile
++- com.snc:mid-installer:jar:17.z.1.10:compile
+|  +- commons-codec:commons-codec:jar:1.10:compile
 |  +- commons-logging:commons-logging:jar:1.2:compile
-|  +- org.apache.httpcomponents:httpclient:jar:4.3.1:compile
-|  +- org.apache.httpcomponents:httpcore:jar:4.3.1:compile
+|  +- org.apache.httpcomponents:httpclient:jar:4.5.5:compile
+|  +- org.apache.httpcomponents:httpcore:jar:4.4.9:compile
 |  \- org.jdom:jdom:jar:2.0.2:compile
-+- com.snc:mid-analytics:jar:14.1.2.3:compile
-|  \- com.snc:mid-analytics-common:jar:14.1.2.3:compile
++- com.snc:mid-analytics:jar:17.z.1.10:compile
+|  \- com.snc:mid-analytics-common:jar:17.z.1.10:compile
 |     \- org.slf4j:slf4j-simple:jar:1.7.5:compile
-+- com.snc:mid-metrics:jar:14.1.2.3:compile
-|  +- com.snc:mid-web-server:jar:14.1.2.3:compile
-|  |  +- com.sun.jersey:jersey-server:jar:1.9:compile
-|  |  |  +- asm:asm:jar:3.1:compile
-|  |  |  \- com.sun.jersey:jersey-core:jar:1.9:compile
-|  |  +- com.sun.jersey:jersey-bundle:jar:1.9:compile
++- com.snc:mid-metrics:jar:17.z.1.10:compile
+|  +- com.snc:mid-web-server:jar:17.z.1.10:compile
+|  |  +- org.eclipse.jetty.websocket:javax-websocket-server-impl:jar:9.4.11.v20180605:compile
+|  |  |  +- org.eclipse.jetty:jetty-annotations:jar:9.4.11.v20180605:compile
+|  |  |  |  +- org.eclipse.jetty:jetty-plus:jar:9.4.11.v20180605:compile
+|  |  |  |  |  \- org.eclipse.jetty:jetty-jndi:jar:9.4.11.v20180605:compile
+|  |  |  |  +- org.eclipse.jetty:jetty-webapp:jar:9.4.11.v20180605:compile
+|  |  |  |  |  \- org.eclipse.jetty:jetty-xml:jar:9.4.11.v20180605:compile
+|  |  |  |  +- javax.annotation:javax.annotation-api:jar:1.2:compile
+|  |  |  |  +- org.ow2.asm:asm:jar:6.2:compile
+|  |  |  |  \- org.ow2.asm:asm-commons:jar:6.2:compile
+|  |  |  |     +- org.ow2.asm:asm-tree:jar:6.2:compile
+|  |  |  |     \- org.ow2.asm:asm-analysis:jar:6.2:compile
+|  |  |  +- org.eclipse.jetty.websocket:javax-websocket-client-impl:jar:9.4.11.v20180605:compile
+|  |  |  |  +- org.eclipse.jetty.websocket:websocket-client:jar:9.4.11.v20180605:compile
+|  |  |  |  \- javax.websocket:javax.websocket-client-api:jar:1.0:compile
+|  |  |  +- org.eclipse.jetty.websocket:websocket-server:jar:9.4.11.v20180605:compile
+|  |  |  |  +- org.eclipse.jetty.websocket:websocket-common:jar:9.4.11.v20180605:compile
+|  |  |  |  |  \- org.eclipse.jetty.websocket:websocket-api:jar:9.4.11.v20180605:compile
+|  |  |  |  \- org.eclipse.jetty.websocket:websocket-servlet:jar:9.4.11.v20180605:compile
+|  |  |  \- javax.websocket:javax.websocket-api:jar:1.0:compile
+|  |  +- com.sun.jersey:jersey-server:jar:1.19.4:compile
+|  |  |  \- com.sun.jersey:jersey-core:jar:1.19.4:compile
+|  |  +- com.sun.jersey:jersey-bundle:jar:1.19.4:compile
 |  |  |  \- javax.ws.rs:jsr311-api:jar:1.1.1:compile
-|  |  +- javax.servlet:javax.servlet-api:jar:3.0.1:compile
 |  |  +- org.codehaus.jackson:jackson-jaxrs:jar:1.9.3:compile
 |  |  \- org.codehaus.jackson:jackson-xc:jar:1.9.3:compile
 |  \- io.dropwizard.metrics:metrics-core:jar:3.1.2:compile
-+- com.snc:mid-metric-connector:jar:14.1.2.3:compile
-|  +- com.amazonaws:aws-java-sdk-iam:jar:1.10.34:compile
-|  \- com.amazonaws:aws-java-sdk-cloudwatch:jar:1.10.34:compile
-+- com.snc:mid-events:jar:14.1.2.3:compile
-+- com.snc:app-itapp-mid:jar:14.1.2.3:compile
-|  +- com.snc:connector-compute:jar:14.1.2.3:compile
-|  |  \- com.jayway.jsonpath:json-path:jar:0.9.1:compile
-|  |     \- net.minidev:json-smart:jar:1.2:compile
-|  +- com.snc:connector-script:jar:14.1.2.3:compile
-|  +- com.snc:connector-network:jar:14.1.2.3:compile
-|  +- com.snc:connector-ssh:jar:14.1.2.3:compile
-|  |  \- com.jcraft:jsch:jar:0.1.54:compile
-|  +- com.snc:connector-util:jar:14.1.2.3:compile
-|  +- com.snc:connector-blockstorage:jar:14.1.2.3:compile
-|  +- com.snc:connector-storageserver:jar:14.1.2.3:compile
-|  +- com.snc:connector-ipam:jar:14.1.2.3:compile
-|  +- com.snc:connector-cfgmgmt:jar:14.1.2.3:compile
-|  +- com.snc:connector-dto:jar:14.1.2.3:compile
-|  +- com.snc:connector-loadbalancer:jar:14.1.2.3:compile
-|  +- com.snc:connector-blobstorage:jar:14.1.2.3:compile
-|  +- com.google.guava:guava:jar:19.0:compile
-|  \- com.snc:connector-nodeaccess:jar:14.1.2.3:compile
++- com.snc:mid-metric-connector:jar:17.z.1.10:compile
++- com.snc:mid-events:jar:17.z.1.10:compile
++- com.snc:app-itapp-mid:jar:17.z.1.10:compile
+|  +- com.snc:connector-compute:jar:17.z.1.10:compile
+|  +- com.snc:connector-script:jar:17.z.1.10:compile
+|  +- com.snc:connector-network:jar:17.z.1.10:compile
+|  +- com.snc:connector-ssh:jar:17.z.1.10:compile
+|  +- com.snc:connector-util:jar:17.z.1.10:compile
+|  |  \- joda-time:joda-time:jar:2.9.2:compile
+|  +- com.snc:connector-blockstorage:jar:17.z.1.10:compile
+|  +- com.snc:connector-ipam:jar:17.z.1.10:compile
+|  +- com.snc:connector-cfgmgmt:jar:17.z.1.10:compile
+|  +- com.snc:connector-dto:jar:17.z.1.10:compile
+|  +- com.snc:connector-loadbalancer:jar:17.z.1.10:compile
+|  +- com.snc:connector-blobstorage:jar:17.z.1.10:compile
+|  +- com.google.guava:guava:jar:20.0:compile
+|  \- com.snc:connector-nodeaccess:jar:17.z.1.10:compile
++- com.snc:mid-monitoring:jar:17.z.1.10:compile
++- javax.servlet:javax.servlet-api:jar:3.1.0:compile
 +- com.snc.test:sdlc-annotations:jar:1.32.0:test
 +- org.unitils:unitils-core:jar:3.4.2:test
 |  \- ognl:ognl:jar:2.6.9:test
